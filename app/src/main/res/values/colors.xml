@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="colorBottom">#0288D1</color>
+    <color name="darker">   @android:color/darker_gray</color>
+    <color name="skip">#5ECE7B</color>
+    <color name="minor">#BEBFC4</color>
+    <color name="alert">#EB5757</color>
+    <color name="star_filled">#5ECE7B</color>
+    <color name="toolbar_fill">#5ECE7B</color>
+    <color name="background">@android:color/white</color>
+
+</resources>

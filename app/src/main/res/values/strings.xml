@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AndroidTest</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title">title</string>
+    <string name="skip"><![CDATA[Skip >]]></string>
+    <string name="crossed"><strike>$ 3430.00</strike></string>
+</resources>

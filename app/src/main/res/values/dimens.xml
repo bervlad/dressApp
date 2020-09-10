@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="tool_smargin">30dp</dimen>
+    <dimen name="tool_mmargin">50dp</dimen>
+    <dimen name="tool_lmargin">70dp</dimen>
+    <dimen name="tool_xlmargin">200dp</dimen>
+    <dimen name="tool_bottom">20dp</dimen>
+    <dimen name="tool_width">15dp</dimen>
+    <dimen name="tool_height">2dp</dimen>
+    <dimen name="vsmall_margin">10dp</dimen>
+    <dimen name="vvsmall_margin">7dp</dimen>
+    <dimen name="toolbar_height">60dp</dimen>
+</resources>
