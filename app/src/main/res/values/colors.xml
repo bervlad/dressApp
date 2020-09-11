@@ -11,5 +11,8 @@
     <color name="star_filled">#5ECE7B</color>
     <color name="toolbar_fill">#5ECE7B</color>
     <color name="background">@android:color/white</color>
+    <color name="black">@android:color/black</color>
+    <color name="header">#A3A5AD</color>
+
 
 </resources>

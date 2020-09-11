@@ -4,8 +4,9 @@ public class DressItem {
     private int img_src;
     private String title, alert;
     private int price, oldPrice, stars, reviews;
+    private boolean liked;
 
-    public DressItem(int img_src, String title, String alert, int price, int oldPrice, int stars, int reviews) {
+    public DressItem(int img_src, String title, String alert, int price, int oldPrice, int stars, int reviews, boolean liked) {
         this.img_src = img_src;
         this.title = title;
         this.alert = alert;
@@ -13,9 +14,16 @@ public class DressItem {
         this.oldPrice = oldPrice;
         this.stars = stars;
         this.reviews = reviews;
+        this.liked=liked;
     }
 
+    public void setLiked(boolean liked) {
+        this.liked = liked;
+    }
 
+    public boolean isLiked() {
+        return liked;
+    }
 
     public void setTitle(String title) {
         this.title = title;

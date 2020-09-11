@@ -1,7 +1,7 @@
 package com.example.androidtest.activity;
 
 import android.view.View;
-import android.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,9 +11,12 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
     private Toolbar toolbar;
 
-    public void initToolbarWithNavigation(String title) {
+    public void initToolbarWithNavigation(String title, Boolean menu) {
         toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(title);
+        if (menu) {
+            toolbar.inflateMenu(R.menu.main);
+        }
 
         toolbar.setNavigationIcon(R.drawable.ic_back_btn);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {

@@ -5,4 +5,6 @@
     <string name="title">title</string>
     <string name="skip"><![CDATA[Skip >]]></string>
     <string name="crossed"><strike>$ 3430.00</strike></string>
+    <string name="header">Tap &amp; hold the product to add to cart</string>
+    <string name="sort">SORT BY</string>
 </resources>

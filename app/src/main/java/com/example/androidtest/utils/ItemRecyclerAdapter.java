@@ -56,11 +56,35 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         holder.dressTypeImage.setImageDrawable(ContextCompat.getDrawable(ctx, items.get(position).getImg_src()));
         holder.titleCard.setText(items.get(position).getTitle());
         holder.price.setText(items.get(position).getPrice());
         holder.reviews.setText(items.get(position).getReviews());
+        holder.likedImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (items.get(position).isLiked()) {
+                    holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_unpressed_like));
+                }  else {
+                    holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_pressed_like));
+                }
+                items.get(position).setLiked(!items.get(position).isLiked());
+            }
+        });
+
+        holder.container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onItemClick(view,position);
+            }
+        });
+
+        if (items.get(position).isLiked()) {
+            holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_pressed_like));
+        }  else {
+            holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_unpressed_like));
+        }
 
         if (items.get(position).getOldPrice()!=null) {
             holder.crossedPrice.setVisibility(View.VISIBLE);
@@ -88,13 +112,16 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView dressTypeImage;
+        ImageView dressTypeImage, likedImage;
         TextView titleCard, price, crossedPrice, reviews, alert;
         ArrayList <ImageView> stars;
+        View container = itemView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             dressTypeImage = itemView.findViewById(R.id.item_img);
+            likedImage = itemView.findViewById(R.id.like);
+
             titleCard=itemView.findViewById(R.id.title_card);
             price=itemView.findViewById(R.id.price);
             crossedPrice=itemView.findViewById(R.id.crossed_price);
