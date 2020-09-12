@@ -4,95 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.SecondActivity"
-    >
+    tools:context=".activity.SecondActivity">
+
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/toolbar" />
-
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/body"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="@dimen/tool_mmargin"
-        android:background="@drawable/layout_bg"
-        app:layout_constraintBottom_toTopOf="@id/menu_tools"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:paddingTop="@dimen/vsmall_margin"
-        android:paddingStart="@dimen/vsmall_margin"
-        android:paddingEnd="@dimen/vsmall_margin"
-        >
-
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="@dimen/vvsmall_margin">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_tap"
-                android:layout_weight="1"/>
-            
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/raleway"
-                android:textSize="13sp"
-                android:text="@string/header"
-                android:textColor="@color/header"
-                android:layout_weight="1"/>
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/roboto"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:text="@string/sort"
-                android:textColor="@color/black"
-                android:layout_weight="1"
-                android:gravity="end"/>
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_sort_icon"
-                android:layout_weight="1"
-                />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@+id/header"
-            android:layout_marginTop="@dimen/vsmall_margin"
-            android:src="@drawable/ic_line"
-            android:layout_marginStart="@dimen/vsmall_margin"
-            android:layout_marginEnd="@dimen/vsmall_margin"
-            />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/vsmall_margin"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="@id/line" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -101,41 +18,138 @@
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:background="@drawable/shadow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/body"
-        android:gravity="center_vertical"
         android:foregroundGravity="center_vertical"
-        android:paddingTop="@dimen/vsmall_margin">
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/vsmall_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/body">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="22dp"
+            android:layout_weight="1"
             android:src="@drawable/ic_home"
-            android:tint="@color/menu"
-            android:layout_weight="1"/>
+            android:tint="@color/menu" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="28dp"
+            android:layout_weight="1"
             android:src="@drawable/ic_magnify"
-            android:tint="@color/menu"
-            android:layout_weight="1"/>
+            android:tint="@color/menu" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="wrap_content"
             android:layout_height="22dp"
+            android:layout_weight="1"
             android:src="@drawable/ic_purchases"
-            android:tint="@color/menu"
-            android:layout_weight="1"/>
+            android:tint="@color/menu" />
 
         <androidx.appcompat.widget.AppCompatImageView
 
             android:layout_width="wrap_content"
             android:layout_height="22dp"
+            android:layout_weight="1"
             android:src="@drawable/ic_user"
-            android:tint="@color/menu"
-            android:layout_weight="1"/>
+            android:tint="@color/menu" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/body"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/tool_mmargin"
+        android:background="@drawable/layout_bg"
+        android:paddingStart="@dimen/vsmall_margin"
+        android:paddingTop="@dimen/vsmall_margin"
+        android:paddingEnd="@dimen/vsmall_margin"
+        app:layout_constraintBottom_toTopOf="@id/menu_tools"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icon_tap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vvsmall_margin"
+            android:layout_weight="1"
+            android:src="@drawable/ic_tap"
+            app:layout_constraintBottom_toTopOf="@id/guideLine"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/icon_sort"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vvsmall_margin"
+            android:src="@drawable/ic_sort_icon"
+            app:layout_constraintBottom_toTopOf="@id/guideLine"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/vsmall_margin"
+            android:layout_marginTop="@dimen/vsmall_margin"
+            android:layout_marginEnd="@dimen/vsmall_margin"
+            android:src="@drawable/ic_line"
+            app:layout_constraintTop_toBottomOf="@+id/guideLine" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/search_bar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vvsmall_margin"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:fontFamily="@font/raleway"
+            android:maxLines="1"
+            android:text="@string/header"
+            android:textColor="@color/header"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toTopOf="@id/guideLine"
+            app:layout_constraintEnd_toStartOf="@id/sort_by"
+            app:layout_constraintStart_toEndOf="@id/icon_tap"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/sort_by"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/vvsmall_margin"
+            android:layout_weight="1"
+            android:fontFamily="@font/roboto"
+            android:gravity="end"
+            android:text="@string/sort"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/guideLine"
+            app:layout_constraintEnd_toStartOf="@id/icon_sort"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideLine"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="25dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/tool_mmargin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
