@@ -4,9 +4,151 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ThirdActivity">
+    tools:context=".activity.ThirdActivity"
+    style="@style/AppTheme.">
 
     <include
+        android:id="@+id/toolbar"
         layout="@layout/toolbar" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/avatar"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toTopOf="@id/title_card"
+        android:src="@drawable/img_1"
+        android:layout_marginBottom="@dimen/vsmall_margin"
+        android:scaleType="centerCrop"
+
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/title_card"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/raleway"
+        app:layout_constraintTop_toBottomOf="@id/avatar"
+        app:layout_constraintBottom_toTopOf="@id/price"
+        app:layout_constraintStart_toStartOf="@id/avatar"
+        android:text="Scardian dress"
+        android:textSize="16sp"
+        android:textAlignment="viewStart"
+        android:layout_marginStart="@dimen/vsmall_margin"
+        android:layout_marginBottom="@dimen/vsmall_margin"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:textSize="16sp"
+        android:text="$ 50.00"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@id/title_card"
+        app:layout_constraintTop_toBottomOf="@id/title_card"
+        app:layout_constraintBottom_toTopOf="@id/stars"
+        android:layout_marginBottom="@dimen/vsmall_margin"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/crossed_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:textSize="12sp"
+        android:text="@string/crossed"
+        android:layout_marginStart="@dimen/vsmall_margin"
+        app:layout_constraintTop_toTopOf="@id/price"
+        android:layout_marginTop="@dimen/vvsmall_margin"
+        android:textColor="@color/minor"
+        app:layout_constraintStart_toEndOf="@id/price"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/stars"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="clip_horizontal"
+        app:layout_constraintTop_toBottomOf="@id/price"
+        app:layout_constraintStart_toStartOf="@id/title_card"
+        app:layout_constraintBottom_toTopOf="@id/alert"
+        android:layout_marginBottom="@dimen/vsmall_margin"
+        >
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/star_1"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_star"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/star_2"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_star"
+            />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/star_3"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_star" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/star_4"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_star" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/star_5"
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_star"
+            />
+
+    </LinearLayout>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/reviews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(80)"
+        android:textSize="14sp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@id/stars"
+        app:layout_constraintStart_toEndOf="@id/stars"
+        />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/alert"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/reviews"
+        app:layout_constraintStart_toStartOf="@id/title_card"
+        app:layout_constraintBottom_toBottomOf="@id/spinner1"
+        android:textColor="@color/alert"
+        android:text="Remain: 2 days 2 hours"
+        android:visibility="visible"
+        android:layout_marginBottom="@dimen/vsmall_margin"
+        />
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinner1"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/title_card"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="@dimen/vsmall_margin"
+        android:spinnerMode="dropdown"
+        style="@style/DropDownMenu"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
