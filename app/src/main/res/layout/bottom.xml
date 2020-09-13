@@ -33,7 +33,6 @@
     <View
         android:id="@+id/divider3"
         style="@style/bottom_tag"
-
         android:layout_width="@dimen/tool_width"
         android:layout_height="@dimen/tool_height"
         android:layout_marginBottom="@dimen/tool_bottom"

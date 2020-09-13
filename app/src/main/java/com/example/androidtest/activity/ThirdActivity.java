@@ -17,8 +17,13 @@ public class ThirdActivity extends BaseActivity {
         initToolbarWithNavigation("Details", false);
 
         Spinner dropdown = findViewById(R.id.spinner1);
-        String[] items = new String[]{"1", "2", "three"};
+        String[] items = new String[]{"Size", "2", "three"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown.setAdapter(adapter);
+
+        Spinner dropdown2 = findViewById(R.id.spinner2);
+        String[] items2 = new String[]{"Color", "2", "three"};
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items2);
+        dropdown2.setAdapter(adapter2);
     }
 }

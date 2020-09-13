@@ -14,7 +14,6 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/menu_tools"
-
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:background="@drawable/shadow"
@@ -74,6 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/vvsmall_margin"
+            android:layout_marginStart="@dimen/vsmall_margin"
             android:layout_weight="1"
             android:src="@drawable/ic_tap"
             app:layout_constraintBottom_toTopOf="@id/guideLine"
@@ -86,6 +86,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/vvsmall_margin"
+            android:layout_marginEnd="@dimen/vsmall_margin"
             android:src="@drawable/ic_sort_icon"
             app:layout_constraintBottom_toTopOf="@id/guideLine"
             app:layout_constraintEnd_toEndOf="parent"
@@ -112,6 +113,7 @@
             android:text="@string/header"
             android:textColor="@color/header"
             android:textSize="13sp"
+            android:layout_marginStart="@dimen/vsmall_margin"
             app:layout_constraintBottom_toTopOf="@id/guideLine"
             app:layout_constraintEnd_toStartOf="@id/sort_by"
             app:layout_constraintStart_toEndOf="@id/icon_tap"
@@ -129,6 +131,7 @@
             android:textColor="@color/black"
             android:textSize="14sp"
             android:textStyle="bold"
+            android:layout_marginEnd="@dimen/vsmall_margin"
             app:layout_constraintBottom_toTopOf="@id/guideLine"
             app:layout_constraintEnd_toStartOf="@id/icon_sort"
             app:layout_constraintTop_toTopOf="parent" />
@@ -138,7 +141,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="25dp" />
+            app:layout_constraintGuide_begin="30dp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_recycler"
