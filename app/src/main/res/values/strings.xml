@@ -7,4 +7,7 @@
     <string name="crossed"><strike>$ 3430.00</strike></string>
     <string name="header">Tap &amp; hold the product to add to cart</string>
     <string name="sort">SORT BY</string>
+    <string name="desc">The Karissa V-Neck Tee features a semi-fitted shape that\'s flattering for every figure. You can hit the gym with confidence while it hugs curves and hides common \"problem\" areas. Find stunning women\'s cocktail dresses and party dresses.</string>
+    <string name="add_to_cart">Add to cart</string>
+    <string name="description">Description</string>
 </resources>

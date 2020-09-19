@@ -14,6 +14,6 @@
     <color name="black">@android:color/black</color>
     <color name="header">#A3A5AD</color>
     <color name="menu">#BEBFC4</color>
-
+    <color name="text">#1D1F22</color>
 
 </resources>

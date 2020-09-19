@@ -10,4 +10,5 @@
     <dimen name="vsmall_margin">10dp</dimen>
     <dimen name="vvsmall_margin">7dp</dimen>
     <dimen name="toolbar_height">60dp</dimen>
+    <dimen name="button_tool">50dp</dimen>
 </resources>
