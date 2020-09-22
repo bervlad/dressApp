@@ -31,15 +31,12 @@ public class MainActivity extends AppCompatActivity {
         fragmentTwo = FragmentTemplate.newInstance("Fragment two", "there we went", R.drawable.icon2, false);
         fragmentThree = FragmentTemplate.newInstance("Sign In | Sign Up", "there we went", R.drawable.icon3, true);
         fragmentThree.setListener(onSkipClicked);
-
-
         adapter.addFragment(fragmentOne, "FrOne");
         adapter.addFragment(fragmentTwo, "FrTwo");
         adapter.addFragment(fragmentThree, "FrThree");
 
         viewPager.setAdapter(adapter);
         setListeners();
-
     }
 
     public void initViews () {

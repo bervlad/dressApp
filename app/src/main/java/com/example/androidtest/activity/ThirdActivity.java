@@ -1,39 +1,102 @@
 package com.example.androidtest.activity;
 
+import android.content.Intent;
 import android.graphics.Matrix;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 
+import com.example.androidtest.AndroidTest;
 import com.example.androidtest.R;
+import com.example.androidtest.listeners.Constants;
+import com.example.androidtest.model.DressItem;
+
+import java.util.ArrayList;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
 public class ThirdActivity extends BaseActivity {
+    private DressItem dressItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_third);
         initToolbarWithNavigation("Details", false);
+        initBasket();
+
         final LinearLayoutCompat desc = findViewById(R.id.desc_tab);
         final NestedScrollView scroll = findViewById(R.id.scrollView);
         final AppCompatImageView line =findViewById(R.id.line1);
+        AppCompatButton button = findViewById(R.id.addButton);
+        final AppCompatImageView circle = findViewById(R.id.basket_circle);
 
-        setSpinner(R.id.spinner1, new String[]{"Size", "2", "three"});
-        setSpinner(R.id.spinner2, new String[]{"Color", "2", "three"});
-        setSpinner(R.id.spinner3, new String[]{"1", "2", "3"});
+
+        //getting model from parcel
+        if (getIntent().getExtras() != null) {
+           dressItem = getIntent().getParcelableExtra(Constants.EXTRA_ITEM);
+        }
+
+        //init views
+        ImageView avatar = findViewById(R.id.avatar);
+        TextView title = findViewById(R.id.title_card);
+        TextView price = findViewById(R.id.price);
+        TextView crossed_price = findViewById(R.id.crossed_price);
+        ArrayList<ImageView> stars=new ArrayList<ImageView>();
+        for (int i = 0; i<5; i++ ) {
+            stars.add((ImageView) findViewById(getResources().
+                    getIdentifier("star_"+Integer.toString(i+1), "id", getPackageName())));
+        }
+        TextView reviews=findViewById(R.id.reviews);
+        TextView alert=findViewById(R.id.alert);
+
+        //Setting data
+        avatar.setImageResource(dressItem.getImg_src());
+        for (int i=0; i<dressItem.getStars(); i++) {
+            stars.get(i).setColorFilter(ContextCompat.getColor (this, R.color.star_filled));
+        }
+
+        title.setText(dressItem.getTitle());
+        price.setText(dressItem.getPrice());
+        crossed_price.setText(dressItem.getOldPrice());
+        reviews.setText(dressItem.getReviews());
+        alert.setText(dressItem.getAlert());
+
+        //setting default values
+        final Spinner spinnerSize = setSpinner(R.id.spinner1, new String[]{"Size", "2", "three"});
+        final Spinner spinnerColor = setSpinner(R.id.spinner2, new String[]{"Color", "2", "three"});
+        final Spinner quant = setSpinner(R.id.spinner3, new String[]{"1", "2", "3"});
+
+
+        //adding functionality to button
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (spinnerSize.getSelectedItem().toString().equals("Size")) {showNameToast("Please specify size"); return;}
+                if (spinnerColor.getSelectedItem().toString().equals("Color")) {showNameToast("Please specify color"); return;}
+                    int quantity = Integer.parseInt(quant.getSelectedItem().toString());
+                    int num = (((AndroidTest) getApplication()).getBasket()) + quantity;
+                    ((AndroidTest) getApplication()).setBasket(num);
+                    Intent explicitIntent = new Intent(ThirdActivity.this, SecondActivity.class);
+                    startActivity(explicitIntent);
+                }
+        });
 
         final AppCompatImageView expand = findViewById(R.id.expand);
         expand.setRotation(180);
@@ -57,11 +120,13 @@ public class ThirdActivity extends BaseActivity {
         });
     }
 
-    public void setSpinner(int resource, String[] items) {
+    public Spinner setSpinner(int resource, String[] items) {
         Spinner dropdown = findViewById(resource);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         dropdown.setAdapter(adapter);
+
+        return dropdown;
     }
 }

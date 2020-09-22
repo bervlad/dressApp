@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.androidtest.R;
+import com.example.androidtest.listeners.Constants;
 import com.example.androidtest.listeners.OnDressItemClickListener;
 import com.example.androidtest.model.DressItem;
 import com.example.androidtest.utils.ItemRecyclerAdapter;
@@ -27,6 +28,7 @@ public class SecondActivity extends BaseActivity {
         setContentView(R.layout.activity_second);
 
         initToolbarWithNavigation("Dresses", true);
+        initBasket();
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_recycler);
         items = new ArrayList<DressItem>();
@@ -40,6 +42,7 @@ public class SecondActivity extends BaseActivity {
             @Override
             public void onItemClick(View v, int position) {
                 Intent explicitIntent = new Intent(SecondActivity.this, ThirdActivity.class);
+                explicitIntent.putExtra(Constants.EXTRA_ITEM, items.get(position));
                 startActivity(explicitIntent);
             }
         };
