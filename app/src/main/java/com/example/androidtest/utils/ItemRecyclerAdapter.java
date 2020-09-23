@@ -47,7 +47,6 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
                 }
             }
         });
-
         return viewHolder;
     }
 
@@ -121,7 +120,6 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
             super(itemView);
             dressTypeImage = itemView.findViewById(R.id.item_img);
             likedImage = itemView.findViewById(R.id.like);
-
             titleCard=itemView.findViewById(R.id.title_card);
             price=itemView.findViewById(R.id.price);
             crossedPrice=itemView.findViewById(R.id.crossed_price);

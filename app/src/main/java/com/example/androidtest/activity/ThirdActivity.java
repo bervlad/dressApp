@@ -1,27 +1,20 @@
 package com.example.androidtest.activity;
 
 import android.content.Intent;
-import android.graphics.Matrix;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 
-import com.example.androidtest.AndroidTest;
+import com.example.androidtest.app.AndroidTest;
 import com.example.androidtest.R;
 import com.example.androidtest.listeners.Constants;
 import com.example.androidtest.model.DressItem;

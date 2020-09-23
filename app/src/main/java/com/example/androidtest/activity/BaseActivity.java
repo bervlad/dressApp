@@ -9,7 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.androidtest.AndroidTest;
+import com.example.androidtest.app.AndroidTest;
 import com.example.androidtest.R;
 
 public abstract class BaseActivity extends AppCompatActivity  {
