@@ -18,6 +18,8 @@ import com.example.androidtest.app.AndroidTest;
 import com.example.androidtest.R;
 import com.example.androidtest.listeners.Constants;
 import com.example.androidtest.model.DressItem;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -33,6 +35,10 @@ public class ThirdActivity extends BaseActivity {
         setContentView(R.layout.activity_third);
         initToolbarWithNavigation("Details", false);
         initBasket();
+
+        final FirebaseAuth mAuth = ((AndroidTest)getApplication()).getmAuth();
+        final FirebaseUser currentUser = mAuth.getCurrentUser();
+
 
         final LinearLayoutCompat desc = findViewById(R.id.desc_tab);
         final NestedScrollView scroll = findViewById(R.id.scrollView);
@@ -81,6 +87,7 @@ public class ThirdActivity extends BaseActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (currentUser==null) {showNameToast("Please login"); return;}
                 if (spinnerSize.getSelectedItem().toString().equals("Size")) {showNameToast("Please specify size"); return;}
                 if (spinnerColor.getSelectedItem().toString().equals("Color")) {showNameToast("Please specify color"); return;}
                     int quantity = Integer.parseInt(quant.getSelectedItem().toString());
