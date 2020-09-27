@@ -36,7 +36,7 @@ public class ThirdActivity extends BaseActivity {
         initToolbarWithNavigation("Details", false);
         initBasket();
 
-        final FirebaseAuth mAuth = ((AndroidTest)getApplication()).getmAuth();
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = mAuth.getCurrentUser();
 
 

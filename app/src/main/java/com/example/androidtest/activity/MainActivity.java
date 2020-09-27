@@ -27,7 +27,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private FragmentTemplate fragmentOne, fragmentTwo, fragmentThree;
 
@@ -36,9 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int RC_SIGN_IN = 9001;
     private GoogleSignInClient mSignInClient;
-    private static final String TAG = "SignInActivity";
+    private static final String TAGG = "SignInActivity";
     private FirebaseAuth mAuth;
-
 
 
     @Override
@@ -53,8 +52,8 @@ public class MainActivity extends AppCompatActivity {
 
         mSignInClient = GoogleSignIn.getClient(this, gso);
 
-// ...
-// Initialize Firebase Auth
+        // ...
+        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
         setContentView(R.layout.activity_main);
@@ -71,6 +70,19 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setAdapter(adapter);
         setListeners();
+
+        if (mAuth.getCurrentUser()!=null) signOut();
+
+//        mAuth.signOut();
+//        showNameToast(mAuth.getCurrentUser().getDisplayName());
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
     }
 
     public void initViews() {
@@ -123,6 +135,21 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
+    private void signOut() {
+        // Firebase sign out
+        mAuth.signOut();
+
+        // Google sign out
+        mSignInClient.signOut().addOnCompleteListener(this,
+                new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+
+                    }
+                });
+    }
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -133,12 +160,14 @@ public class MainActivity extends AppCompatActivity {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = task.getResult(ApiException.class);
-                Log.d(TAG, "firebaseAuthWithGoogle: " + account.getId());
-                Log.d(TAG, "Hello: " + account.getDisplayName());
+                Log.d(TAGG, "firebaseAuthWithGoogle: " + account.getId());
+                Log.d(TAGG, "Hello: " + account.getDisplayName());
+                showNameToast("Hello " + account.getDisplayName());
                 firebaseAuthWithGoogle(account.getIdToken());
+
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
-                Log.w(TAG, "Google sign in failed", e);
+                Log.w(TAGG, "Google sign in failed", e);
             }
         }
     }
@@ -151,12 +180,13 @@ public class MainActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
+                            Log.d(TAGG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            onLastFragment.nextActivity();
 //                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Log.w(TAGG, "signInWithCredential:failure", task.getException());
 //                            Snackbar.make(mBinding.mainLayout, "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
 //                            updateUI(null);
                         }
