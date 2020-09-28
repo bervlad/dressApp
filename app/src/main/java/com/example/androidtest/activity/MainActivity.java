@@ -126,7 +126,9 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public void login() {
-            signIn();
+            Intent explicitIntent = new Intent(MainActivity.this, LoginPage.class);
+            startActivity(explicitIntent);
+            //signIn();
         }
     };
 

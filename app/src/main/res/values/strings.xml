@@ -11,4 +11,11 @@
     <string name="add_to_cart">Add to cart</string>
     <string name="description">Description</string>
     <string name="circle_num_template">1</string>
+    <string name="password">password</string>
+    <string name="put_here_your_email_address">email address</string>
+    <string name="email">Email</string>
+    <string name="login_page">Login Page</string>
+    <string name="login">Login</string>
+    <string name="password_cap">Password</string>
+    <string name="please_login">Please login</string>
 </resources>

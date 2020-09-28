@@ -52,5 +52,9 @@ public class SecondActivity extends BaseActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         recyclerView.setAdapter(adapter);
 
+        if (getIntent().getExtras() != null) {
+            showNameToast( "Welcome " + getIntent().getStringExtra(Constants.LOG) + " !");
+        }
+
     }
 }

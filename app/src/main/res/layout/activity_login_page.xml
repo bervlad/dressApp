@@ -3,66 +3,111 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="@dimen/tool_smargin">
+    style="@style/AppThemeLogin">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Login Page"
-        android:textStyle="bold"
-        android:id="@+id/textView_login"
-        app:layout_constraintStart_toStartOf="parent"
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/body"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/tool_mmargin"
+        android:background="@drawable/layout_bg"
+        android:paddingStart="@dimen/vsmall_margin"
+        android:paddingTop="@dimen/vsmall_margin"
+        android:paddingEnd="@dimen/vsmall_margin"
         app:layout_constraintTop_toTopOf="parent"
-         />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Email"
-        android:id="@+id/textView_username"
-        android:layout_marginTop="66dp"
-        app:layout_constraintTop_toBottomOf="@id/textView_login"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Password"
-        android:id="@+id/textView_password"
-        android:layout_marginTop="66dp"
-        app:layout_constraintTop_toBottomOf="@id/textView_username"
-        app:layout_constraintStart_toStartOf="parent"/>
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/editText_user"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/textView_username" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/textView_password"
-        android:layout_marginStart="@dimen/tool_smargin"
-         />
-
-
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"
-        android:id="@+id/button_login"
-        app:layout_constraintTop_toBottomOf="@id/textView_password"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="60dp" />
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/please_login"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:id="@+id/textView_login"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="@dimen/tool_smargin"
+            android:layout_marginStart="@dimen/vsmall_margin"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/email"
+            android:id="@+id/textView_username"
+            android:layout_marginTop="66dp"
+            android:textSize="18sp"
+            app:layout_constraintTop_toBottomOf="@id/textView_login"
+            app:layout_constraintStart_toStartOf="@id/textView_login"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/password_cap"
+            android:textSize="18sp"
+            android:id="@+id/textView_password"
+            android:layout_marginTop="66dp"
+            app:layout_constraintTop_toBottomOf="@id/textView_username"
+            app:layout_constraintStart_toStartOf="@id/textView_login"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:textSize="18sp"
+            android:id="@+id/editText_user"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textView_username"
+            app:layout_constraintBottom_toBottomOf="@id/textView_username"
+            android:autofillHints="Email"
+            android:hint="@string/put_here_your_email_address"
+            android:layout_marginEnd="@dimen/tool_mmargin"
+            android:singleLine="true"
+            />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:id="@+id/editText_password"
+            android:ems="10"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textView_password"
+            app:layout_constraintBottom_toBottomOf="@id/textView_password"
+            android:layout_marginStart="@dimen/tool_smargin"
+            android:hint="@string/password"
+            android:autofillHints="Password"
+            android:layout_marginEnd="@dimen/tool_mmargin"
+
+            android:singleLine="true"/>
+
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:id="@+id/button_login"
+            app:layout_constraintTop_toBottomOf="@id/textView_password"
+            app:layout_constraintStart_toStartOf="@id/textView_login"
+            android:layout_marginTop="60dp"
+            android:textSize="18sp"
+            android:textAllCaps="false"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
