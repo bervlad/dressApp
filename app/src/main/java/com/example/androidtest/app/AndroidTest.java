@@ -2,20 +2,14 @@ package com.example.androidtest.app;
 
 import android.app.Application;
 
+import com.example.androidtest.data.UserData;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class AndroidTest extends Application {
 
     private int basket;
-    private FirebaseAuth mAuth;
+    private UserData usersWithInfo;
 
-    public FirebaseAuth getmAuth() {
-        return mAuth;
-    }
-
-    public void setmAuth(FirebaseAuth mAuth) {
-        this.mAuth = mAuth;
-    }
 
     public int getBasket() {
         return basket;
@@ -25,7 +19,13 @@ public class AndroidTest extends Application {
         this.basket = basket;
     }
 
+    public UserData getUsersWithInfo() {
+        return usersWithInfo;
+    }
 
+    public void setUsersWithInfo(UserData usersWithInfo) {
+        this.usersWithInfo = usersWithInfo;
+    }
 
     @Override
     public void onCreate() {

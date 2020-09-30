@@ -1,7 +1,6 @@
 package com.example.androidtest.activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 
@@ -9,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.androidtest.KeyboardUtils;
 import com.example.androidtest.R;
@@ -22,7 +20,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.Objects;
 
-public class LoginPage extends BaseActivity {
+public class LoginActivity extends LogRegActivity {
 
     private static final String TAG = "LoginActivity";
 
@@ -45,18 +43,17 @@ public class LoginPage extends BaseActivity {
         logButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                KeyboardUtils.hide(LoginPage.this);
+                KeyboardUtils.hide(LoginActivity.this);
                 if (mAuth.getCurrentUser()!=null) {showNameToast("Already signed in"); goToList(); return;}
                 if (email.getText()==null || email.getText().toString().trim().isEmpty()){showNameToast("Please enter email"); return;}
                 if (password.getText()==null || password.getText().toString().trim().isEmpty()){showNameToast("Please enter password"); return;}
-                logPassAuth(email.getText().toString(), password.getText().toString());
+                logPassAuth(email.getText().toString(), password.getText().toString(), mAuth);
             }
         });
 
     }
 
-    public void logPassAuth(String email, String password) {
-        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private void logPassAuth(String email, String password, final FirebaseAuth mAuth) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -65,6 +62,7 @@ public class LoginPage extends BaseActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            assert user != null;
                             goToListSignedUser(user);
 
                         } else {
@@ -73,19 +71,4 @@ public class LoginPage extends BaseActivity {
                     }
                 });
     }
-
-    private void goToListSignedUser(FirebaseUser user) {
-        Intent explicitIntent = new Intent(LoginPage.this, SecondActivity.class);
-        if (user.getDisplayName()!=null) {
-            explicitIntent.putExtra(Constants.LOG, user.getDisplayName());
-        }
-        startActivity(explicitIntent);
-    }
-
-    public void goToList ()
-    {
-        Intent explicitIntent = new Intent(LoginPage.this, SecondActivity.class);
-        startActivity(explicitIntent);
-    }
-
 }

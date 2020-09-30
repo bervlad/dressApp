@@ -13,8 +13,12 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidtest.R;
+import com.example.androidtest.app.AndroidTest;
+import com.example.androidtest.data.UserData;
 import com.example.androidtest.listeners.OnDressItemClickListener;
 import com.example.androidtest.model.DressItem;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -23,10 +27,14 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
     private ArrayList<DressItem> items;
     private Context ctx;
     private OnDressItemClickListener listener;
+    FirebaseUser mUser;
+    UserData userData;
+    AndroidTest app;
 
-    public ItemRecyclerAdapter(ArrayList<DressItem> items, Context ctx) {
+    public ItemRecyclerAdapter(ArrayList<DressItem> items, Context ctx, UserData userData) {
         this.items = items;
         this.ctx = ctx;
+        this.userData=userData;
     }
 
     public void setListener(OnDressItemClickListener listener) {
@@ -56,6 +64,9 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+
+        mUser = (FirebaseAuth.getInstance()).getCurrentUser();
+
         holder.dressTypeImage.setImageDrawable(ContextCompat.getDrawable(ctx, items.get(position).getImg_src()));
         holder.titleCard.setText(items.get(position).getTitle());
         holder.price.setText(items.get(position).getPrice());
@@ -63,10 +74,15 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
         holder.likedImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (items.get(position).isLiked()) {
                     holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_unpressed_like));
                 }  else {
                     holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_pressed_like));
+                }
+
+                if (mUser!=null && !userData.getItems(mUser).contains(items.get(position))) {
+                    userData.getItems(mUser).add(items.get(position));
                 }
                 items.get(position).setLiked(!items.get(position).isLiked());
             }

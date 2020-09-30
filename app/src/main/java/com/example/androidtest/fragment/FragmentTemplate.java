@@ -116,6 +116,14 @@ public class FragmentTemplate extends Fragment {
 
             registerTextView=v.findViewById(R.id.fragment_register);
             registerTextView.setVisibility(View.VISIBLE);
+            registerTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (onLastFragment !=null) {
+                        onLastFragment.register();
+                    }
+                }
+            });
 
             slashTextView=v.findViewById(R.id.fragment_slash);
             slashTextView.setVisibility(View.VISIBLE);

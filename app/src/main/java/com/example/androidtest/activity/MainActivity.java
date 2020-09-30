@@ -1,7 +1,6 @@
 package com.example.androidtest.activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
@@ -29,40 +28,25 @@ import com.google.firebase.auth.GoogleAuthProvider;
 
 public class MainActivity extends BaseActivity {
 
-    private FragmentTemplate fragmentOne, fragmentTwo, fragmentThree;
-
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
 
     private static final int RC_SIGN_IN = 9001;
-    private GoogleSignInClient mSignInClient;
     private static final String TAGG = "SignInActivity";
-    private FirebaseAuth mAuth;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Configure Google Sign In
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mSignInClient = GoogleSignIn.getClient(this, gso);
-
-        // ...
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
+        initAuth();
 
         setContentView(R.layout.activity_main);
 
         initViews();
 
-        fragmentOne = FragmentTemplate.newInstance("Fragment one", "Hre we go", R.drawable.icon1, false);
-        fragmentTwo = FragmentTemplate.newInstance("Fragment two", "there we went", R.drawable.icon2, false);
-        fragmentThree = FragmentTemplate.newInstance("there we went", R.drawable.icon3, true);
+        FragmentTemplate fragmentOne = FragmentTemplate.newInstance("Fragment one", "Hre we go", R.drawable.icon1, false);
+        FragmentTemplate fragmentTwo = FragmentTemplate.newInstance("Fragment two", "there we went", R.drawable.icon2, false);
+        FragmentTemplate fragmentThree = FragmentTemplate.newInstance("there we went", R.drawable.icon3, true);
         fragmentThree.setListener(onLastFragment);
         adapter.addFragment(fragmentOne, "FrOne");
         adapter.addFragment(fragmentTwo, "FrTwo");
@@ -97,8 +81,8 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 Integer[] indexes = {R.id.divider1, R.id.divider2, R.id.divider3};
-                for (int i = 0; i < indexes.length; i++) {
-                    View bottom = findViewById(indexes[i]);
+                for (Integer index : indexes) {
+                    View bottom = findViewById(index);
                     bottom.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.darker));
                 }
                 View bottom = findViewById(indexes[position]);
@@ -126,32 +110,18 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public void login() {
-            Intent explicitIntent = new Intent(MainActivity.this, LoginPage.class);
+            Intent explicitIntent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(explicitIntent);
             //signIn();
         }
+
+        @Override
+        public void register() {
+            Intent explicitIntent = new Intent(MainActivity.this, RegisterActivity.class);
+            startActivity(explicitIntent);
+        }
+
     };
-
-    private void signIn() {
-        Intent signInIntent = mSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
-    private void signOut() {
-        // Firebase sign out
-        mAuth.signOut();
-
-        // Google sign out
-        mSignInClient.signOut().addOnCompleteListener(this,
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-
-                    }
-                });
-    }
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
