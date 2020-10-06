@@ -29,7 +29,6 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
     private OnDressItemClickListener listener;
     FirebaseUser mUser;
     UserData userData;
-    AndroidTest app;
 
     public ItemRecyclerAdapter(ArrayList<DressItem> items, Context ctx, UserData userData) {
         this.items = items;
@@ -71,22 +70,32 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
         holder.titleCard.setText(items.get(position).getTitle());
         holder.price.setText(items.get(position).getPrice());
         holder.reviews.setText(items.get(position).getReviews());
-        holder.likedImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                if (items.get(position).isLiked()) {
-                    holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_unpressed_like));
-                }  else {
-                    holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_pressed_like));
+        if (mUser==null) {
+            holder.likedImage.setVisibility(View.GONE);
+        }
+        else {
+            holder.likedImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (userData.getItems(mUser.getEmail()).contains(items.get(position))) {
+                        holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_unpressed_like));
+                        removeLike(items.get(position));
+                    } else {
+                        holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_pressed_like));
+                        addLike(items.get(position));
+                    }
+                    //items.get(position).setLiked(!items.get(position).isLiked());
                 }
+            });
 
-                if (mUser!=null && !userData.getItems(mUser).contains(items.get(position))) {
-                    userData.getItems(mUser).add(items.get(position));
-                }
-                items.get(position).setLiked(!items.get(position).isLiked());
+            if (userData.getItems(mUser.getEmail()).contains(items.get(position))) {
+                holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_pressed_like));
             }
-        });
+            else {
+                holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_unpressed_like));
+            }
+        }
 
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,11 +104,13 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
             }
         });
 
-        if (items.get(position).isLiked()) {
-            holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_pressed_like));
-        }  else {
-            holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_unpressed_like));
-        }
+
+//
+//        if (items.get(position).isLiked()) {
+//            holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_pressed_like));
+//        }  else {
+//            holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_unpressed_like));
+//        }
 
         if (items.get(position).getOldPrice()!=null) {
             holder.crossedPrice.setVisibility(View.VISIBLE);
@@ -146,6 +157,18 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
                 stars.add((ImageView)itemView.findViewById(itemView.getContext().getResources().
                         getIdentifier("star_"+Integer.toString(i+1), "id", itemView.getContext().getPackageName())));
             }
+        }
+    }
+
+    public void addLike (DressItem item) {
+        if (mUser!=null && userData.getItems(mUser.getEmail())!=null && !userData.getItems(mUser.getEmail()).contains(item)) {
+            userData.getItems(mUser.getEmail()).add(item);
+        }
+    }
+
+    public void removeLike (DressItem item) {
+        if (mUser!=null && userData.getItems(mUser.getEmail())!=null) {
+            userData.getItems(mUser.getEmail()).remove(item);
         }
     }
 }

@@ -17,7 +17,7 @@ public class DressItem implements Parcelable {
         return id;
     }
 
-    public DressItem(int id, int img_src, String title, String alert, int price, int oldPrice, int stars, int reviews, boolean liked) {
+    public DressItem(int id, int img_src, String title, String alert, int price, int oldPrice, int stars, int reviews) {
         this.img_src = img_src;
         this.title = title;
         this.alert = alert;
@@ -25,7 +25,6 @@ public class DressItem implements Parcelable {
         this.oldPrice = oldPrice;
         this.stars = stars;
         this.reviews = reviews;
-        this.liked=liked;
         this.id=id;
     }
 

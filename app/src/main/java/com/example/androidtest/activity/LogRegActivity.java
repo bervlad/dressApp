@@ -12,6 +12,11 @@ public abstract class LogRegActivity extends BaseActivity {
         if (user.getDisplayName()!=null) {
             explicitIntent.putExtra(Constants.LOG, user.getDisplayName());
         }
+        // adding user to database
+        if (!getUserData().hasUser(user.getEmail())) {
+            getUserData().addUser(user.getEmail());
+        }
+
         startActivity(explicitIntent);
     }
 
@@ -19,5 +24,9 @@ public abstract class LogRegActivity extends BaseActivity {
     {
         Intent explicitIntent = new Intent(this, SecondActivity.class);
         startActivity(explicitIntent);
+    }
+
+    private void addUser () {
+
     }
 }

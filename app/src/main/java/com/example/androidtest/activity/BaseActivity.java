@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidtest.app.AndroidTest;
 import com.example.androidtest.R;
+import com.example.androidtest.data.UserData;
 import com.example.androidtest.listeners.Constants;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -113,10 +114,15 @@ public abstract class BaseActivity extends AppCompatActivity  {
                     public void onComplete(@NonNull Task<Void> task) {
                     }
                 });
+        ((AndroidTest)getApplication()).setBasket(0);
     }
 
     public void showNameToast(String name) {
         Toast.makeText(this, name, Toast.LENGTH_LONG).show();
+    }
+
+    public UserData getUserData () {
+        return ((AndroidTest)getApplication()).getUsersWithInfo();
     }
 
 }

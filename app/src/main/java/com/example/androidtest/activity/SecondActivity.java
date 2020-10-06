@@ -44,19 +44,26 @@ public class SecondActivity extends BaseActivity {
         userData = ((AndroidTest)getApplication()).getUsersWithInfo();
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_recycler);
-        items = new ArrayList<DressItem>();
 
-        items.add(new DressItem(1, R.drawable.img_1, "Hello",null, 100, 150, 3, 2, false));
-        items.add(new DressItem(2, R.drawable.img_2, "Hello2", null, 140, 170, 4, 3, false));
-        items.add(new DressItem(3, R.drawable.img_2, "Hello3", "Important", 10, -1, 5, 20, false));
 
-        if (mUser!=null && userData!=null) {
-            for (DressItem item:items) {
-                if (userData.getUserInfoDetails(mUser).getItemById(item.getId())!=null) {
-                    item.setLiked(userData.getUserInfoDetails(mUser).getItemById(item.getId()).isLiked());
-                }
-            }
-        }
+        if (((AndroidTest)getApplication()).getItems()==null)
+        ((AndroidTest)getApplication()).initItems();
+
+        items = ((AndroidTest)getApplication()).getItems();
+
+//        items = new ArrayList<DressItem>();
+//
+//        items.add(new DressItem(1, R.drawable.img_1, "Hello",null, 100, 150, 3, 2));
+//        items.add(new DressItem(2, R.drawable.img_2, "Hello2", null, 140, 170, 4, 3));
+//        items.add(new DressItem(3, R.drawable.img_2, "Hello3", "Important", 10, -1, 5, 20));
+
+//        if (mUser!=null && userData!=null) {
+//            for (DressItem item:items) {
+//                if (userData.getItems(mUser).contains(item)) {
+//                    item.setLiked(true);
+//                }
+//            }
+//        }
 
         adapter = new ItemRecyclerAdapter(items, this, userData);
         OnDressItemClickListener listener = new OnDressItemClickListener() {
@@ -69,7 +76,7 @@ public class SecondActivity extends BaseActivity {
 
             @Override
             public UserData onHeartClick() {
-                return ((AndroidTest) getApplication()).getUsersWithInfo();
+                return getUserData();
             }
 
         };

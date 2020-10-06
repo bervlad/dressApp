@@ -1,5 +1,7 @@
 package com.example.androidtest.data;
 
+import android.util.Log;
+
 import com.example.androidtest.model.DressItem;
 import com.example.androidtest.model.UserInfoDetails;
 import com.google.firebase.auth.FirebaseUser;
@@ -11,27 +13,24 @@ import java.util.HashSet;
 import java.util.Objects;
 
 public class UserData {
-    private HashMap<FirebaseUser, UserInfoDetails> userData;
+    private HashMap<String, UserInfoDetails> userData;
 
-    public UserInfoDetails getUserInfoDetails (FirebaseUser user) {
-        return userData.get(user);
+    public UserData() {
+        userData = new HashMap<>();
     }
 
-    public void addUser (FirebaseUser user) {
-        if (userData.get(user)!=null) {
-            userData.put(user, new UserInfoDetails (user, new ArrayList<DressItem>() ));
-        }
+    public boolean hasUser (String email) {
+        return userData.containsKey(email);
     }
 
-    public void addUserWithInfo (FirebaseUser user, UserInfoDetails details) {
-            userData.put(user, details );
+    public void addUser (String email) {
+            Log.d("TAG", "New user added: "+ userData.get(email));
+            userData.put(email, new UserInfoDetails (email, new ArrayList<DressItem>() ));
     }
 
-    public void addItemsToUser (FirebaseUser user, ArrayList<DressItem> items) {
-        Objects.requireNonNull(userData.get(user)).setItems(items);
-    }
 
-    public ArrayList<DressItem> getItems (FirebaseUser user) {
-        return Objects.requireNonNull(userData.get(user)).getItems();
+    public ArrayList<DressItem> getItems (String email) {
+        if (userData!=null && userData.get(email)!=null) {
+            return Objects.requireNonNull(userData.get(email)).getItems();} else return null;
     }
 }
