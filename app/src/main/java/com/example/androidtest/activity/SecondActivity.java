@@ -41,47 +41,17 @@ public class SecondActivity extends BaseActivity {
 
         mUser = (FirebaseAuth.getInstance()).getCurrentUser();
         userData = ((AndroidTest)getApplication()).getUsersWithInfo();
-
         recyclerView = (RecyclerView) findViewById(R.id.rv_recycler);
 
         items=new ArrayList<>();
-
-//
-
-
-
-        adapter = new ItemRecyclerAdapter(items, this, userData);
-        OnDressItemClickListener listener = new OnDressItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-                Intent explicitIntent = new Intent(SecondActivity.this, ThirdActivity.class);
-                explicitIntent.putExtra(Constants.EXTRA_ITEM, items.get(position));
-                startActivity(explicitIntent);
-            }
-
-            @Override
-            public UserData onHeartClick() {
-                return getUserData();
-            }
-
-        };
-
-        adapter.setListener(listener);
-        // Can be changed to any layout manager
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
-        recyclerView.setAdapter(adapter);
-
-
-        database =getDatabase();
-//        adapterInit();
-          initData();
+        adapterInit();
+        initData();
 
         if (((AndroidTest)getApplication()).getItems()==null)
             ((AndroidTest)getApplication()).initItems();
-
         items = ((AndroidTest)getApplication()).getItems();
-        database.dressItemDao().insert(items);
 
+        database.dressItemDao().insert(items);
 
         if (getIntent().getExtras() != null) {
             showNameToast( "Welcome " + getIntent().getStringExtra(Constants.LOG) + " !");
@@ -113,16 +83,12 @@ public class SecondActivity extends BaseActivity {
     }
 
     private void initData() {
-
+        database =getDatabase();
         if (database!=null) {
-//            ((AndroidTest)getApplication()).initItems();
-//            items = ((AndroidTest)getApplication()).getItems();
-//          //  Log.d ("TAG2", "Model "+ items.get(0).toString());
-//            database.dressItemDao().insert(items);
             database.dressItemDao().getAll().observe(this, (List<DressItem> dressItems) -> {
                         items.clear();
                         items.addAll(dressItems);
-                      //  Log.d ("TAG", "Database empty: 1st item " + items.get(0).getTitle());
+                        Log.d("TAG", "Database" + dressItems.get(0).getTitle()) ;
                         adapter.notifyDataSetChanged();
                     });
         }
