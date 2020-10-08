@@ -2,10 +2,12 @@ package com.example.androidtest.app;
 
 import android.app.Application;
 
+import androidx.room.Room;
+
 import com.example.androidtest.R;
-import com.example.androidtest.data.UserData;
+import com.example.androidtest.database.AppDatabase;
+import com.example.androidtest.database.UserData;
 import com.example.androidtest.model.DressItem;
-import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -14,6 +16,7 @@ public class AndroidTest extends Application {
     private int basket;
     private UserData usersWithInfo;
     private ArrayList<DressItem> items;
+    private AppDatabase appDatabase;
 
 
     public int getBasket() {
@@ -44,10 +47,19 @@ public class AndroidTest extends Application {
         items.add(new DressItem(3, R.drawable.img_2, "Hello3", "Important", 10, -1, 5, 20));
     }
 
+    public AppDatabase getDatabase() {
+        return appDatabase;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         basket=0;
         usersWithInfo = new UserData();
+
+        appDatabase = Room.databaseBuilder(this, AppDatabase.class, "dataUsersDress")
+                .allowMainThreadQueries()
+                .build();
+        appDatabase.dressItemDao().deleteAll();
     }
 }

@@ -1,12 +1,7 @@
 package com.example.androidtest.activity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -20,7 +15,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidtest.app.AndroidTest;
 import com.example.androidtest.R;
-import com.example.androidtest.data.UserData;
+import com.example.androidtest.database.AppDatabase;
+import com.example.androidtest.database.UserData;
 import com.example.androidtest.listeners.Constants;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -123,6 +119,10 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
     public UserData getUserData () {
         return ((AndroidTest)getApplication()).getUsersWithInfo();
+    }
+
+    public AppDatabase getDatabase() {
+        return ((AndroidTest) getApplication()).getDatabase();
     }
 
 }

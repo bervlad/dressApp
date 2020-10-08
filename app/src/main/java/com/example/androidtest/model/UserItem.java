@@ -6,11 +6,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class UserInfoDetails {
+public class UserItem {
     String email;
     ArrayList<DressItem> items;
 
-    public UserInfoDetails(String email, ArrayList<DressItem> items) {
+    public UserItem(String email, ArrayList<DressItem> items) {
         this.email = email;
         this.items = items;
     }

@@ -1,19 +1,16 @@
 package com.example.androidtest.activity;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.androidtest.R;
 import com.example.androidtest.app.AndroidTest;
-import com.example.androidtest.data.UserData;
+import com.example.androidtest.database.AppDatabase;
+import com.example.androidtest.database.UserData;
 import com.example.androidtest.listeners.Constants;
 import com.example.androidtest.listeners.OnDressItemClickListener;
 import com.example.androidtest.model.DressItem;
@@ -22,6 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SecondActivity extends BaseActivity {
     RecyclerView recyclerView;
@@ -29,6 +27,7 @@ public class SecondActivity extends BaseActivity {
     ItemRecyclerAdapter adapter;
     private FirebaseUser mUser;
     UserData userData;
+    AppDatabase database;
 
 
 
@@ -46,10 +45,10 @@ public class SecondActivity extends BaseActivity {
         recyclerView = (RecyclerView) findViewById(R.id.rv_recycler);
 
 
-        if (((AndroidTest)getApplication()).getItems()==null)
-        ((AndroidTest)getApplication()).initItems();
+ //       if (((AndroidTest)getApplication()).getItems()==null)
+ //       ((AndroidTest)getApplication()).initItems();
 
-        items = ((AndroidTest)getApplication()).getItems();
+ //       items = ((AndroidTest)getApplication()).getItems();
 
 //        items = new ArrayList<DressItem>();
 //
@@ -65,6 +64,19 @@ public class SecondActivity extends BaseActivity {
 //            }
 //        }
 
+
+
+        adapterInit();
+        initData();
+
+
+        if (getIntent().getExtras() != null) {
+            showNameToast( "Welcome " + getIntent().getStringExtra(Constants.LOG) + " !");
+        }
+
+    }
+
+    private void adapterInit() {
         adapter = new ItemRecyclerAdapter(items, this, userData);
         OnDressItemClickListener listener = new OnDressItemClickListener() {
             @Override
@@ -85,10 +97,20 @@ public class SecondActivity extends BaseActivity {
         // Can be changed to any layout manager
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         recyclerView.setAdapter(adapter);
+    }
 
-        if (getIntent().getExtras() != null) {
-            showNameToast( "Welcome " + getIntent().getStringExtra(Constants.LOG) + " !");
+    private void initData() {
+        database =getDatabase();
+        if (database != null) {
+            database.dressItemDao().getAll().observe(this, (List<DressItem> dressItems) -> {
+                items.clear();
+                items.addAll(dressItems);
+                adapter.notifyDataSetChanged();
+            });
+        } else {
+            ((AndroidTest)getApplication()).initItems();
+            items = ((AndroidTest)getApplication()).getItems();
+            database.dressItemDao().insert(items);
         }
-
     }
 }

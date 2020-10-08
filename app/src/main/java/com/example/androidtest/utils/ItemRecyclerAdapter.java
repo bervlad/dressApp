@@ -13,8 +13,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidtest.R;
-import com.example.androidtest.app.AndroidTest;
-import com.example.androidtest.data.UserData;
+import com.example.androidtest.database.UserData;
 import com.example.androidtest.listeners.OnDressItemClickListener;
 import com.example.androidtest.model.DressItem;
 import com.google.firebase.auth.FirebaseAuth;
@@ -68,8 +67,8 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
 
         holder.dressTypeImage.setImageDrawable(ContextCompat.getDrawable(ctx, items.get(position).getImg_src()));
         holder.titleCard.setText(items.get(position).getTitle());
-        holder.price.setText(items.get(position).getPrice());
-        holder.reviews.setText(items.get(position).getReviews());
+        holder.price.setText(items.get(position).getPriceText());
+        holder.reviews.setText(items.get(position).getReviewsText());
 
         if (mUser==null) {
             holder.likedImage.setVisibility(View.GONE);
@@ -112,9 +111,9 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
 //            holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_unpressed_like));
 //        }
 
-        if (items.get(position).getOldPrice()!=null) {
+        if (items.get(position).getOldPriceText()!=null) {
             holder.crossedPrice.setVisibility(View.VISIBLE);
-            holder.crossedPrice.setText(items.get(position).getOldPrice());
+            holder.crossedPrice.setText(items.get(position).getOldPriceText());
             holder.crossedPrice.setPaintFlags(holder.crossedPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         } else {
             holder.crossedPrice.setVisibility(View.GONE);

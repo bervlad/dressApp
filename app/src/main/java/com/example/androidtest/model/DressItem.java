@@ -5,12 +5,36 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.annotation.RequiresApi;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
+@Entity(tableName = "dressItemsTable")
 public class DressItem implements Parcelable {
+
+    @ColumnInfo (name="image")
     private int img_src;
-    private String title, alert;
-    private int price, oldPrice, stars, reviews;
-    private boolean liked;
+
+    @ColumnInfo (name="title")
+    private String title;
+
+    @ColumnInfo (name="alert")
+    private String alert;
+
+    @ColumnInfo (name="price")
+    private int price;
+
+    @ColumnInfo (name="oldprice")
+    private int oldPrice;
+
+    @ColumnInfo (name="stars")
+    private int stars;
+
+    @ColumnInfo (name="reviews")
+    private int reviews;
+
+
+    @PrimaryKey
     private int id;
 
     public int getId() {
@@ -28,13 +52,6 @@ public class DressItem implements Parcelable {
         this.id=id;
     }
 
-    public void setLiked(boolean liked) {
-        this.liked = liked;
-    }
-
-    public boolean isLiked() {
-        return liked;
-    }
 
     public void setTitle(String title) {
         this.title = title;
@@ -68,11 +85,19 @@ public class DressItem implements Parcelable {
         return alert;
     }
 
-    public String getPrice() {
+    public int getOldPrice() {
+        return oldPrice;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public String getPriceText() {
         return "$ " + Integer.toString(price);
     }
 
-    public String getOldPrice() {
+    public String getOldPriceText() {
         if (oldPrice!=-1) {
         return "$ " + Integer.toString(oldPrice);} else return null;
     }
@@ -81,7 +106,11 @@ public class DressItem implements Parcelable {
         return stars;
     }
 
-    public String getReviews() {
+    public int getReviews() {
+        return reviews;
+    }
+
+    public String getReviewsText() {
         return "("+ Integer.toString(reviews) +")";
     }
 
@@ -108,7 +137,6 @@ public class DressItem implements Parcelable {
         parcel.writeInt(oldPrice);
         parcel.writeInt(stars);
         parcel.writeInt(reviews);
-        parcel.writeByte((byte) (liked ? 1 : 0));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
@@ -120,7 +148,6 @@ public class DressItem implements Parcelable {
         oldPrice = in.readInt();
         stars = in.readInt();
         reviews = in.readInt();
-        liked = in.readByte() != 0;
     }
 
     public static final Creator<DressItem> CREATOR = new Creator<DressItem>() {

@@ -1,19 +1,16 @@
-package com.example.androidtest.data;
+package com.example.androidtest.database;
 
 import android.util.Log;
 
 import com.example.androidtest.model.DressItem;
-import com.example.androidtest.model.UserInfoDetails;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
+import com.example.androidtest.model.UserItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Objects;
 
 public class UserData {
-    private HashMap<String, UserInfoDetails> userData;
+    private HashMap<String, UserItem> userData;
 
     public UserData() {
         userData = new HashMap<>();
@@ -25,7 +22,7 @@ public class UserData {
 
     public void addUser (String email) {
             Log.d("TAG", "New user added: "+ userData.get(email));
-            userData.put(email, new UserInfoDetails (email, new ArrayList<DressItem>() ));
+            userData.put(email, new UserItem(email, new ArrayList<DressItem>() ));
     }
 
 

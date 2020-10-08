@@ -72,9 +72,9 @@ public class ThirdActivity extends BaseActivity {
         }
 
         title.setText(dressItem.getTitle());
-        price.setText(dressItem.getPrice());
-        crossed_price.setText(dressItem.getOldPrice());
-        reviews.setText(dressItem.getReviews());
+        price.setText(dressItem.getPriceText());
+        crossed_price.setText(dressItem.getOldPriceText());
+        reviews.setText(dressItem.getReviewsText());
         alert.setText(dressItem.getAlert());
 
         //setting default values
