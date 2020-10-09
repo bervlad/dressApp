@@ -34,4 +34,7 @@ public interface DressItemDao {
     @Query("DELETE FROM dressItemsTable")
     void deleteAll();
 
+    @Query("SELECT * FROM dressItemsTable")
+    List<DressItem> checkIfEmpty();
+
 }

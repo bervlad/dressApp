@@ -22,11 +22,11 @@ public class UserData {
 
     public void addUser (String email) {
             Log.d("TAG", "New user added: "+ userData.get(email));
-            userData.put(email, new UserItem(email, new ArrayList<DressItem>() ));
+            userData.put(email, new UserItem(email, new ArrayList<String>() ));
     }
 
 
-    public ArrayList<DressItem> getItems (String email) {
+    public ArrayList<String> getItems (String email) {
         if (userData!=null && userData.get(email)!=null) {
             return Objects.requireNonNull(userData.get(email)).getItems();} else return null;
     }

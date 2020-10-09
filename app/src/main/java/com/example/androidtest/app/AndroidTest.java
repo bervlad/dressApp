@@ -39,12 +39,18 @@ public class AndroidTest extends Application {
         return items;
     }
 
-    public void initItems () {
+    public ArrayList<DressItem> initNewArItems () {
         items = new ArrayList<DressItem>();
+        return items;
+    }
 
-        items.add(new DressItem(1, R.drawable.img_1, "Hello",null, 100, 150, 3, 2));
-        items.add(new DressItem(2, R.drawable.img_2, "Hello2", null, 140, 170, 4, 3));
-        items.add(new DressItem(3, R.drawable.img_2, "Hello3", "Important", 10, -1, 5, 20));
+    public void initItems () {
+
+       // items = new ArrayList<DressItem>();
+
+        items.add(new DressItem("1", R.drawable.img_1, "Hello",null, 100, 150, 3, 2));
+        items.add(new DressItem("2", R.drawable.img_2, "Hello2", null, 140, 170, 4, 3));
+        items.add(new DressItem("3", R.drawable.img_2, "Hello3", "Important", 10, -1, 5, 20));
     }
 
     public AppDatabase getDatabase() {
@@ -57,9 +63,11 @@ public class AndroidTest extends Application {
         basket=0;
         usersWithInfo = new UserData();
 
+        //this.deleteDatabase("dataUsersDress");
+
         appDatabase = Room.databaseBuilder(this, AppDatabase.class, "dataUsersDress")
                 .allowMainThreadQueries()
                 .build();
-        appDatabase.dressItemDao().deleteAll();
+        //appDatabase.dressItemDao().deleteAll();
     }
 }

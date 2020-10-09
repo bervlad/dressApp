@@ -4,6 +4,7 @@ import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -35,13 +36,14 @@ public class DressItem implements Parcelable {
 
 
     @PrimaryKey
-    private int id;
+    @NonNull
+    private String id;
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public DressItem(int id, int img_src, String title, String alert, int price, int oldPrice, int stars, int reviews) {
+    public DressItem(String id, int img_src, String title, String alert, int price, int oldPrice, int stars, int reviews) {
         this.img_src = img_src;
         this.title = title;
         this.alert = alert;

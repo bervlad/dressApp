@@ -8,9 +8,9 @@ import java.util.HashSet;
 
 public class UserItem {
     String email;
-    ArrayList<DressItem> items;
+    ArrayList<String> items;
 
-    public UserItem(String email, ArrayList<DressItem> items) {
+    public UserItem(String email, ArrayList<String> items) {
         this.email = email;
         this.items = items;
     }
@@ -19,7 +19,7 @@ public class UserItem {
         return email;
     }
 
-    public ArrayList<DressItem> getItems() {
+    public ArrayList<String> getItems() {
         return items;
     }
 

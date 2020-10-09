@@ -2,6 +2,7 @@ package com.example.androidtest.utils;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +78,7 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
             holder.likedImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (userData.getItems(mUser.getEmail()).contains(items.get(position))) {
+                    if (userData.getItems(mUser.getEmail()).contains(items.get(position).getId())) {
                         holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_unpressed_like));
                         removeLike(items.get(position));
                     } else {
@@ -88,7 +89,7 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
                 }
             });
 
-            if (userData.getItems(mUser.getEmail()).contains(items.get(position))) {
+            if (userData.getItems(mUser.getEmail()).contains(items.get(position).getId())) {
                 holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_pressed_like));
             }
             else {
@@ -160,14 +161,17 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
     }
 
     public void addLike (DressItem item) {
-        if (mUser!=null && userData.getItems(mUser.getEmail())!=null && !userData.getItems(mUser.getEmail()).contains(item)) {
-            userData.getItems(mUser.getEmail()).add(item);
+        if (mUser!=null &&
+                !userData.getItems(mUser.getEmail()).contains(item.getId())) {
+            userData.getItems(mUser.getEmail()).add(item.getId());
+            Log.d("TAG", "Added");
         }
     }
 
     public void removeLike (DressItem item) {
-        if (mUser!=null && userData.getItems(mUser.getEmail())!=null) {
-            userData.getItems(mUser.getEmail()).remove(item);
+        if (mUser!=null &&
+                userData.getItems(mUser.getEmail())!=null) {
+            userData.getItems(mUser.getEmail()).remove(item.getId());
         }
     }
 }

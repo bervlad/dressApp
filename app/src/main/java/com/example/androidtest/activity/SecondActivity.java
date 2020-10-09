@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SecondActivity extends BaseActivity {
     private RecyclerView recyclerView;
@@ -43,20 +44,27 @@ public class SecondActivity extends BaseActivity {
         userData = ((AndroidTest)getApplication()).getUsersWithInfo();
         recyclerView = (RecyclerView) findViewById(R.id.rv_recycler);
 
-        items=new ArrayList<>();
+        items = ((AndroidTest) getApplication()).initNewArItems();
+
         adapterInit();
         initData();
 
-        if (((AndroidTest)getApplication()).getItems()==null)
-            ((AndroidTest)getApplication()).initItems();
-        items = ((AndroidTest)getApplication()).getItems();
+        if (database.dressItemDao().checkIfEmpty().size() == 0) {
+            ((AndroidTest) getApplication()).initItems();
+            items.addAll (((AndroidTest)getApplication()).getItems());
+            database.dressItemDao().insert(items);
+            Log.d("TAG", "Database initialized");
+        }
 
-        database.dressItemDao().insert(items);
+//        if (items.size()==0) {
+//            items.addAll(database.dressItemDao().checkIfEmpty());
+//            Log.d("TAG", "Items initialized " + items.size());
+//        }
+
 
         if (getIntent().getExtras() != null) {
             showNameToast( "Welcome " + getIntent().getStringExtra(Constants.LOG) + " !");
         }
-
     }
 
     private void adapterInit() {
@@ -88,7 +96,6 @@ public class SecondActivity extends BaseActivity {
             database.dressItemDao().getAll().observe(this, (List<DressItem> dressItems) -> {
                         items.clear();
                         items.addAll(dressItems);
-                        Log.d("TAG", "Database" + dressItems.get(0).getTitle()) ;
                         adapter.notifyDataSetChanged();
                     });
         }
