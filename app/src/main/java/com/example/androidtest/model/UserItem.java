@@ -23,12 +23,8 @@ public class UserItem {
     @NonNull
     String email;
 
-    @ColumnInfo (name="itemsLiked")
-    ArrayList<String> items;
-
-    public UserItem(String email, ArrayList<String> items) {
+    public UserItem(String email) {
         this.email = email;
-        this.items = items;
     }
 
     @NonNull
@@ -36,15 +32,8 @@ public class UserItem {
         return email;
     }
 
-    public ArrayList<String> getItems() {
-        return items;
-    }
-
     public void setEmail(@NonNull String email) {
         this.email = email;
     }
 
-    public void setItems(ArrayList<String> itemsLiked) {
-        this.items = itemsLiked;
-    }
 }

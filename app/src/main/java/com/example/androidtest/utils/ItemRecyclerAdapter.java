@@ -34,10 +34,9 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
     UserData userData;
     AppDatabase appDatabase;
 
-    public ItemRecyclerAdapter(ArrayList<DressItem> items, Context ctx, UserData userData, AppDatabase database) {
+    public ItemRecyclerAdapter(ArrayList<DressItem> items, Context ctx, AppDatabase database) {
         this.items = items;
         this.ctx = ctx;
-        this.userData=userData;
         this.appDatabase = database;
     }
 
@@ -83,8 +82,7 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
             holder.likedImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (userData.getItems(mUser.getEmail()).contains(items.get(position).getId()) &&
-                            appDatabase.userItemDao().getLikesForUser(mUser.getEmail()).contains(items.get(position).getId())) {
+                    if (appDatabase.userItemDao().getLikesForUser(mUser.getEmail()).contains(items.get(position).getId())) {
                         holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_unpressed_like));
                         removeLike(items.get(position));
                     } else {
@@ -96,8 +94,8 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
                 }
             });
 
-            if (userData.getItems(mUser.getEmail()).contains(items.get(position).getId()) &&
-                    appDatabase.userItemDao().getLikesForUser(mUser.getEmail()).contains(items.get(position).getId())) {
+            Log.d ("TAG", "SET: " + appDatabase.userItemDao().getLikesForUser(mUser.getEmail()).toString());
+            if (appDatabase.userItemDao().getLikesForUser(mUser.getEmail()).contains(items.get(position).getId())) {
                 holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_pressed_like));
             }
             else {
@@ -170,21 +168,21 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
 
     public void addLike (DressItem item) {
 
-            userData.getItems(mUser.getEmail()).add(item.getId());
-            Log.d("TAG", "Added");
+//            userData.getItems(mUser.getEmail()).add(item.getId());
+//            Log.d("TAG", "Added");
 
             //sql room Database insert
             appDatabase.userDressItemDao().insert(new UserDressItem(mUser.getEmail(), item.getId()));
-            Log.d("TAG", "Added to database");
+            Log.d("TAG", "Added item " + item.getId() + " to database for user " + mUser.getEmail());
     }
 
     public void removeLike (DressItem item) {
 
-            userData.getItems(mUser.getEmail()).remove(item.getId());
+            //userData.getItems(mUser.getEmail()).remove(item.getId());
 
             //sql room Database delete
             appDatabase.userDressItemDao().deleteLikeFromUser(mUser.getEmail(), item.getId());
-            Log.d("TAG", "Deleted from database");
+            Log.d("TAG", "Deleted item " + item.getId() + " to database for user " + mUser.getEmail());
 
     }
 }

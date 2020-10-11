@@ -18,14 +18,10 @@ public abstract class LogRegActivity extends BaseActivity {
         if (user.getDisplayName()!=null) {
             explicitIntent.putExtra(Constants.LOG, user.getDisplayName());
         }
-        // adding user to database
-        if (!getUserData().hasUser(user.getEmail())) {
-            getUserData().addUser(user.getEmail());
-        }
 
         AppDatabase database = getDatabase();
         if (database.userItemDao().checkEmail(user.getEmail()).size()==0) {
-            UserItem newUser = new UserItem(Objects.requireNonNull(user.getEmail()), new ArrayList<String>());
+            UserItem newUser = new UserItem(Objects.requireNonNull(user.getEmail()));
             database.userItemDao().insert(newUser);
             Log.d ("TAG", "User added to SQL database");
 

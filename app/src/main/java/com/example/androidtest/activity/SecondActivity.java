@@ -27,8 +27,6 @@ public class SecondActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private ArrayList<DressItem> items;
     private ItemRecyclerAdapter adapter;
-    private FirebaseUser mUser;
-    private UserData userData;
     private AppDatabase database;
 
 
@@ -40,8 +38,6 @@ public class SecondActivity extends BaseActivity {
         initToolbarWithNavigation("Dresses", true);
         initBasket();
 
-        mUser = (FirebaseAuth.getInstance()).getCurrentUser();
-        userData = ((AndroidTest)getApplication()).getUsersWithInfo();
         recyclerView = (RecyclerView) findViewById(R.id.rv_recycler);
 
         items = ((AndroidTest) getApplication()).initNewArItems();
@@ -68,7 +64,7 @@ public class SecondActivity extends BaseActivity {
     }
 
     private void adapterInit() {
-        adapter = new ItemRecyclerAdapter(items, this, userData, getDatabase());
+        adapter = new ItemRecyclerAdapter(items, this, getDatabase());
         OnDressItemClickListener listener = new OnDressItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
