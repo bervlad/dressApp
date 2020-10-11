@@ -14,9 +14,12 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.androidtest.R;
+import com.example.androidtest.app.AndroidTest;
+import com.example.androidtest.database.AppDatabase;
 import com.example.androidtest.database.UserData;
 import com.example.androidtest.listeners.OnDressItemClickListener;
 import com.example.androidtest.model.DressItem;
+import com.example.androidtest.model.UserDressItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -29,11 +32,13 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
     private OnDressItemClickListener listener;
     FirebaseUser mUser;
     UserData userData;
+    AppDatabase appDatabase;
 
-    public ItemRecyclerAdapter(ArrayList<DressItem> items, Context ctx, UserData userData) {
+    public ItemRecyclerAdapter(ArrayList<DressItem> items, Context ctx, UserData userData, AppDatabase database) {
         this.items = items;
         this.ctx = ctx;
         this.userData=userData;
+        this.appDatabase = database;
     }
 
     public void setListener(OnDressItemClickListener listener) {
@@ -78,18 +83,21 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
             holder.likedImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (userData.getItems(mUser.getEmail()).contains(items.get(position).getId())) {
+                    if (userData.getItems(mUser.getEmail()).contains(items.get(position).getId()) &&
+                            appDatabase.userItemDao().getLikesForUser(mUser.getEmail()).contains(items.get(position).getId())) {
                         holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_unpressed_like));
                         removeLike(items.get(position));
                     } else {
                         holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_pressed_like));
                         addLike(items.get(position));
                     }
+
                     //items.get(position).setLiked(!items.get(position).isLiked());
                 }
             });
 
-            if (userData.getItems(mUser.getEmail()).contains(items.get(position).getId())) {
+            if (userData.getItems(mUser.getEmail()).contains(items.get(position).getId()) &&
+                    appDatabase.userItemDao().getLikesForUser(mUser.getEmail()).contains(items.get(position).getId())) {
                 holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_pressed_like));
             }
             else {
@@ -161,17 +169,22 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
     }
 
     public void addLike (DressItem item) {
-        if (mUser!=null &&
-                !userData.getItems(mUser.getEmail()).contains(item.getId())) {
+
             userData.getItems(mUser.getEmail()).add(item.getId());
             Log.d("TAG", "Added");
-        }
+
+            //sql room Database insert
+            appDatabase.userDressItemDao().insert(new UserDressItem(mUser.getEmail(), item.getId()));
+            Log.d("TAG", "Added to database");
     }
 
     public void removeLike (DressItem item) {
-        if (mUser!=null &&
-                userData.getItems(mUser.getEmail())!=null) {
+
             userData.getItems(mUser.getEmail()).remove(item.getId());
-        }
+
+            //sql room Database delete
+            appDatabase.userDressItemDao().deleteLikeFromUser(mUser.getEmail(), item.getId());
+            Log.d("TAG", "Deleted from database");
+
     }
 }

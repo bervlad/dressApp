@@ -17,7 +17,7 @@ public interface DressItemDao {
     LiveData<List<DressItem> > getAll();
 
     @Query("SELECT * FROM dressItemsTable WHERE id = :id")
-    LiveData<DressItem> getById(long id);
+    LiveData<DressItem> getById(String id);
 
     @Insert
     void insert(DressItem item);

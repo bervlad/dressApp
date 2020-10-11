@@ -68,7 +68,7 @@ public class SecondActivity extends BaseActivity {
     }
 
     private void adapterInit() {
-        adapter = new ItemRecyclerAdapter(items, this, userData);
+        adapter = new ItemRecyclerAdapter(items, this, userData, getDatabase());
         OnDressItemClickListener listener = new OnDressItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
