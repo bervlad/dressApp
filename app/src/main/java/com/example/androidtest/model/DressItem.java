@@ -1,16 +1,31 @@
 package com.example.androidtest.model;
 
+import android.content.Context;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverter;
+import androidx.room.TypeConverters;
+
+import com.example.androidtest.app.AndroidTest;
+import com.example.androidtest.database.TypesConverter;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.StorageReference;
+
+import org.jetbrains.annotations.NotNull;
 
 @Entity(tableName = "dressItemsTable")
+//@TypeConverters({TypesConverter.class})
+
 public class DressItem implements Parcelable {
 
     @ColumnInfo (name="image")
@@ -34,11 +49,23 @@ public class DressItem implements Parcelable {
     @ColumnInfo (name="reviews")
     private int reviews;
 
+    @ColumnInfo (name="links")
+    private String uri;
+
 
     @PrimaryKey
     @NonNull
     private String id;
 
+    public String getUri() {
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    @NotNull
     public String getId() {
         return id;
     }
@@ -123,6 +150,8 @@ public class DressItem implements Parcelable {
     public void setImg_src(int img_src) {
         this.img_src = img_src;
     }
+
+
 
     @Override
     public int describeContents() {

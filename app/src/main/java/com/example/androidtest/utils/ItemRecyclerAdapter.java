@@ -2,6 +2,7 @@ package com.example.androidtest.utils;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.module.AppGlideModule;
 import com.example.androidtest.R;
 import com.example.androidtest.app.AndroidTest;
 import com.example.androidtest.database.AppDatabase;
@@ -67,10 +70,11 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-
         mUser = (FirebaseAuth.getInstance()).getCurrentUser();
 
-        holder.dressTypeImage.setImageDrawable(ContextCompat.getDrawable(ctx, items.get(position).getImg_src()));
+        Glide.with(holder.dressTypeImage).load(items.get(position).getUri()).placeholder(R.drawable.ic_account_search_outline).into(holder.dressTypeImage);
+
+        //holder.dressTypeImage.setImageDrawable(ContextCompat.getDrawable(ctx, items.get(position).getImg_src()));
         holder.titleCard.setText(items.get(position).getTitle());
         holder.price.setText(items.get(position).getPriceText());
         holder.reviews.setText(items.get(position).getReviewsText());

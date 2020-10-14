@@ -1,6 +1,7 @@
 package com.example.androidtest.app;
 
 import android.app.Application;
+import android.net.Uri;
 
 import androidx.room.Room;
 
@@ -8,6 +9,8 @@ import com.example.androidtest.R;
 import com.example.androidtest.database.AppDatabase;
 import com.example.androidtest.database.UserData;
 import com.example.androidtest.model.DressItem;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -46,7 +49,7 @@ public class AndroidTest extends Application {
 
     public void initItems () {
 
-       // items = new ArrayList<DressItem>();
+        //items = new ArrayList<DressItem>();
 
         items.add(new DressItem("1", R.drawable.img_1, "Hello",null, 100, 150, 3, 2));
         items.add(new DressItem("2", R.drawable.img_2, "Hello2", null, 140, 170, 4, 3));
@@ -64,10 +67,12 @@ public class AndroidTest extends Application {
         usersWithInfo = new UserData();
 
         //this.deleteDatabase("dataUsersDress");
+        //appDatabase.dressItemDao().deleteAll();
 
         appDatabase = Room.databaseBuilder(this, AppDatabase.class, "dataUsersDress")
                 .allowMainThreadQueries()
                 .build();
+
         //appDatabase.dressItemDao().deleteAll();
     }
 }

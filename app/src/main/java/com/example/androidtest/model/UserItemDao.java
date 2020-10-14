@@ -39,7 +39,9 @@ public interface UserItemDao {
     @Query("SELECT * FROM userItemsTable WHERE email = :email")
     List<UserItem> checkEmail(String email);
 
-    @Query("SELECT dressId FROM userItemsTable INNER JOIN userDressItemsTable WHERE userDressItemsTable.email = :email")
+    @Query("SELECT dressId " +
+            "FROM userItemsTable INNER JOIN userDressItemsTable ON userDressItemsTable.email=userItemsTable.email " +
+            "WHERE userItemsTable.email = :email")
     List<String> getLikesForUser (String email);
 
 }

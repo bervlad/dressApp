@@ -1,9 +1,11 @@
 package com.example.androidtest.activity;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,9 +18,22 @@ import com.example.androidtest.listeners.Constants;
 import com.example.androidtest.listeners.OnDressItemClickListener;
 import com.example.androidtest.model.DressItem;
 import com.example.androidtest.utils.ItemRecyclerAdapter;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -28,6 +43,9 @@ public class SecondActivity extends BaseActivity {
     private ArrayList<DressItem> items;
     private ItemRecyclerAdapter adapter;
     private AppDatabase database;
+    StorageReference mStorageRef;
+    FirebaseDatabase fdatabase;
+    DatabaseReference myRef;
 
 
     @Override
@@ -42,25 +60,70 @@ public class SecondActivity extends BaseActivity {
 
         items = ((AndroidTest) getApplication()).initNewArItems();
 
+        mStorageRef = FirebaseStorage.getInstance().getReference();
+
         adapterInit();
         initData();
 
-        if (database.dressItemDao().checkIfEmpty().size() == 0) {
-            ((AndroidTest) getApplication()).initItems();
-            items.addAll (((AndroidTest)getApplication()).getItems());
-            database.dressItemDao().insert(items);
-            Log.d("TAG", "Database initialized");
-        }
+        //FireBase realtime database
+//        // Write a message to the database
+        fdatabase = FirebaseDatabase.getInstance();
+        myRef = fdatabase.getReference("item");
 
-//        if (items.size()==0) {
-//            items.addAll(database.dressItemDao().checkIfEmpty());
-//            Log.d("TAG", "Items initialized " + items.size());
-//        }
+
+        if (database.dressItemDao().checkIfEmpty().size() == 0) {
+//            ((AndroidTest) getApplication()).initItems();
+//            items.addAll(((AndroidTest) getApplication()).getItems());
+//            Log.d("TAG", "Array size " + items.size());
+//            database.dressItemDao().insert(items);
+//            Log.d("TAG", "Database initialized");
+            FireDatabaseToSQL();
+
+        }
 
 
         if (getIntent().getExtras() != null) {
-            showNameToast( "Welcome " + getIntent().getStringExtra(Constants.LOG) + " !");
+            showNameToast("Welcome " + getIntent().getStringExtra(Constants.LOG) + " !");
         }
+    }
+
+    private void FireDatabaseToSQL() {
+        myRef.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+
+//                ((AndroidTest) getApplication()).deleteDatabase("dataUsersDress");
+//                items.clear();
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String id = ds.child("id").getValue(String.class);
+                    int img_src = ds.child("img_src").getValue(Integer.class);
+                    String title = ds.child("title").getValue(String.class);
+                    String alert = ds.child("title").getValue(String.class);
+                    int price =ds.child("price").getValue(Integer.class);;
+                    int oldPrice= ds.child("oldPrice").getValue(Integer.class);
+                    int stars= ds.child("stars").getValue(Integer.class);;
+                    int reviews= ds.child("reviews").getValue(Integer.class);
+                    String uriLink = ds.child("uri").getValue(String.class);
+
+                    DressItem item = new DressItem(id, img_src, title, alert, price, oldPrice, stars, reviews);
+                    item.setUri(uriLink);
+                    items.add (item);
+                }
+                database.dressItemDao().insert(items);
+                Log.d("TAG", "Database initialized");
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("TAG", "Failed to read value.", error.toException());
+            }
+        });
     }
 
     private void adapterInit() {
@@ -82,18 +145,42 @@ public class SecondActivity extends BaseActivity {
 
         adapter.setListener(listener);
         // Can be changed to any layout manager
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setAdapter(adapter);
     }
 
     private void initData() {
-        database =getDatabase();
-        if (database!=null) {
+        database = getDatabase();
+        if (database != null) {
             database.dressItemDao().getAll().observe(this, (List<DressItem> dressItems) -> {
-                        items.clear();
-                        items.addAll(dressItems);
-                        adapter.notifyDataSetChanged();
-                    });
+                items.clear();
+                items.addAll(dressItems);
+
+//                myRef.removeValue();
+//                for (DressItem item : items) {
+//                    setItemToFdatabase (item);
+//                }
+                adapter.notifyDataSetChanged();
+            });
         }
+    }
+
+    private void setItemToFdatabase(DressItem item) {
+        String id = item.getId();
+        mStorageRef.child("images/" + id + ".png").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Log.d("TAG", "Uri link for " + id + " obtained: " + uri.toString());
+                item.setUri(uri.toString());
+                DatabaseReference newRef = myRef.child(item.getId());
+                newRef.setValue(item);
+                Log.d("TAG", "KEY: " + newRef.getKey());
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.d("TAG", "No image found");
+            }
+        });
     }
 }
