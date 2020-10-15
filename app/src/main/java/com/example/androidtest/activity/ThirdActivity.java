@@ -14,6 +14,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 
+import com.bumptech.glide.Glide;
 import com.example.androidtest.app.AndroidTest;
 import com.example.androidtest.R;
 import com.example.androidtest.listeners.Constants;
@@ -65,8 +66,10 @@ public class ThirdActivity extends BaseActivity {
         TextView reviews=findViewById(R.id.reviews);
         TextView alert=findViewById(R.id.alert);
 
+
         //Setting data
-        avatar.setImageResource(dressItem.getImg_src());
+        Glide.with(avatar).load(dressItem.getUri()).placeholder(R.drawable.ic_account_search_outline).into(avatar);
+
         for (int i=0; i<dressItem.getStars(); i++) {
             stars.get(i).setColorFilter(ContextCompat.getColor (this, R.color.star_filled));
         }

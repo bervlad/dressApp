@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 public class DressItem implements Parcelable {
 
     @ColumnInfo (name="image")
-    private int img_src;
+    private String img_src;
 
     @ColumnInfo (name="title")
     private String title;
@@ -70,7 +70,7 @@ public class DressItem implements Parcelable {
         return id;
     }
 
-    public DressItem(String id, int img_src, String title, String alert, int price, int oldPrice, int stars, int reviews) {
+    public DressItem(String id, String img_src, String title, String alert, int price, int oldPrice, int stars, int reviews) {
         this.img_src = img_src;
         this.title = title;
         this.alert = alert;
@@ -143,11 +143,11 @@ public class DressItem implements Parcelable {
         return "("+ Integer.toString(reviews) +")";
     }
 
-    public int getImg_src() {
+    public String getImg_src() {
         return img_src;
     }
 
-    public void setImg_src(int img_src) {
+    public void setImg_src(String img_src) {
         this.img_src = img_src;
     }
 
@@ -161,24 +161,26 @@ public class DressItem implements Parcelable {
     @RequiresApi(api = Build.VERSION_CODES.Q)
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(img_src);
+        parcel.writeString(img_src);
         parcel.writeString(title);
         parcel.writeString(alert);
         parcel.writeInt(price);
         parcel.writeInt(oldPrice);
         parcel.writeInt(stars);
         parcel.writeInt(reviews);
+        parcel.writeString(uri);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
     protected DressItem (Parcel in) {
-        img_src = in.readInt();
+        img_src = in.readString();
         title = in.readString();
         alert = in.readString();
         price = in.readInt();
         oldPrice = in.readInt();
         stars = in.readInt();
         reviews = in.readInt();
+        uri = in.readString();
     }
 
     public static final Creator<DressItem> CREATOR = new Creator<DressItem>() {

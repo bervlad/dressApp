@@ -57,9 +57,7 @@ public class SecondActivity extends BaseActivity {
         initBasket();
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_recycler);
-
         items = ((AndroidTest) getApplication()).initNewArItems();
-
         mStorageRef = FirebaseStorage.getInstance().getReference();
 
         adapterInit();
@@ -70,17 +68,14 @@ public class SecondActivity extends BaseActivity {
         fdatabase = FirebaseDatabase.getInstance();
         myRef = fdatabase.getReference("item");
 
-
-        if (database.dressItemDao().checkIfEmpty().size() == 0) {
+//        if (database.dressItemDao().checkIfEmpty().size() == 0) {
 //            ((AndroidTest) getApplication()).initItems();
 //            items.addAll(((AndroidTest) getApplication()).getItems());
 //            Log.d("TAG", "Array size " + items.size());
 //            database.dressItemDao().insert(items);
 //            Log.d("TAG", "Database initialized");
-            FireDatabaseToSQL();
-
-        }
-
+           FireDatabaseToSQL();
+//        }
 
         if (getIntent().getExtras() != null) {
             showNameToast("Welcome " + getIntent().getStringExtra(Constants.LOG) + " !");
@@ -88,6 +83,9 @@ public class SecondActivity extends BaseActivity {
     }
 
     private void FireDatabaseToSQL() {
+
+
+
         myRef.addValueEventListener(new ValueEventListener() {
 
             @Override
@@ -98,11 +96,14 @@ public class SecondActivity extends BaseActivity {
 //                ((AndroidTest) getApplication()).deleteDatabase("dataUsersDress");
 //                items.clear();
 
+                getDatabase().dressItemDao().deleteAll();
+                items.clear();
+
                 for(DataSnapshot ds : dataSnapshot.getChildren()) {
                     String id = ds.child("id").getValue(String.class);
-                    int img_src = ds.child("img_src").getValue(Integer.class);
+                    String img_src = ds.child("img_src").getValue(String.class);
                     String title = ds.child("title").getValue(String.class);
-                    String alert = ds.child("title").getValue(String.class);
+                    String alert = ds.child("alert").getValue(String.class);
                     int price =ds.child("price").getValue(Integer.class);;
                     int oldPrice= ds.child("oldPrice").getValue(Integer.class);
                     int stars= ds.child("stars").getValue(Integer.class);;
@@ -115,7 +116,6 @@ public class SecondActivity extends BaseActivity {
                 }
                 database.dressItemDao().insert(items);
                 Log.d("TAG", "Database initialized");
-
             }
 
             @Override
@@ -155,26 +155,28 @@ public class SecondActivity extends BaseActivity {
             database.dressItemDao().getAll().observe(this, (List<DressItem> dressItems) -> {
                 items.clear();
                 items.addAll(dressItems);
-
+                adapter.notifyDataSetChanged();
+//
 //                myRef.removeValue();
 //                for (DressItem item : items) {
 //                    setItemToFdatabase (item);
 //                }
-                adapter.notifyDataSetChanged();
+
             });
         }
     }
 
     private void setItemToFdatabase(DressItem item) {
-        String id = item.getId();
+        String id = item.getImg_src();
         mStorageRef.child("images/" + id + ".png").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-                Log.d("TAG", "Uri link for " + id + " obtained: " + uri.toString());
+                Log.d("TAG", "Uri link for " + item.getTitle() + " obtained: " + uri.toString());
                 item.setUri(uri.toString());
                 DatabaseReference newRef = myRef.child(item.getId());
                 newRef.setValue(item);
                 Log.d("TAG", "KEY: " + newRef.getKey());
+                adapter.notifyDataSetChanged();
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

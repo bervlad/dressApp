@@ -50,10 +50,12 @@ public class AndroidTest extends Application {
     public void initItems () {
 
         //items = new ArrayList<DressItem>();
-
-        items.add(new DressItem("1", R.drawable.img_1, "Hello",null, 100, 150, 3, 2));
-        items.add(new DressItem("2", R.drawable.img_2, "Hello2", null, 140, 170, 4, 3));
-        items.add(new DressItem("3", R.drawable.img_2, "Hello3", "Important", 10, -1, 5, 20));
+        items.add(new DressItem("1", "1",  "Hello",null, 100, 150, 3, 2));
+        items.add(new DressItem("2", "2", "Hello2", null, 140, 170, 4, 3));
+        items.add(new DressItem("3", "3", "Hello3", "Important", 18, -1, 1, 10));
+        items.add(new DressItem("4", "4", "Hello4", "Important", 16, -1, 5, 14));
+        items.add(new DressItem("5", "2", "Hello6", null, 13, -1, 3, 13));
+        items.add(new DressItem("6", "4", "Hello7", "Important", 13, -1, 3, 13));
     }
 
     public AppDatabase getDatabase() {
@@ -66,7 +68,7 @@ public class AndroidTest extends Application {
         basket=0;
         usersWithInfo = new UserData();
 
-        //this.deleteDatabase("dataUsersDress");
+//        this.deleteDatabase("dataUsersDress");
         //appDatabase.dressItemDao().deleteAll();
 
         appDatabase = Room.databaseBuilder(this, AppDatabase.class, "dataUsersDress")
