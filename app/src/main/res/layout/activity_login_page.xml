@@ -1,9 +1,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/AppThemeLogin">
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppThemeLogin"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <include
         android:id="@+id/toolbar"
@@ -18,96 +18,92 @@
         android:paddingStart="@dimen/vsmall_margin"
         android:paddingTop="@dimen/vsmall_margin"
         android:paddingEnd="@dimen/vsmall_margin"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textView_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginStart="@dimen/vsmall_margin"
+            android:layout_marginTop="@dimen/tool_smargin"
             android:text="@string/please_login"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/skip"
             android:textSize="22sp"
-            android:id="@+id/textView_login"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="@dimen/tool_smargin"
-            android:layout_marginStart="@dimen/vsmall_margin"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/email"
             android:id="@+id/textView_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="66dp"
-            android:textSize="18sp"
+            android:text="@string/email"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/text"
-            app:layout_constraintTop_toBottomOf="@id/textView_login"
-            app:layout_constraintStart_toStartOf="@id/textView_login"/>
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/textView_login"
+            app:layout_constraintTop_toBottomOf="@id/textView_login" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/password_cap"
-            android:textSize="18sp"
             android:id="@+id/textView_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/tool_mmargin"
+            android:text="@string/password_cap"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/text"
-            app:layout_constraintTop_toBottomOf="@id/textView_username"
-            app:layout_constraintStart_toStartOf="@id/textView_login"/>
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/textView_login"
+            app:layout_constraintTop_toBottomOf="@id/textView_username" />
 
         <androidx.appcompat.widget.AppCompatEditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:textSize="18sp"
             android:id="@+id/editText_user"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textView_username"
-            app:layout_constraintBottom_toBottomOf="@id/textView_username"
-            android:autofillHints="Email"
-            android:hint="@string/put_here_your_email_address"
-            android:layout_marginEnd="@dimen/tool_mmargin"
-            android:singleLine="true"
-            />
-
-        <androidx.appcompat.widget.AppCompatEditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:id="@+id/editText_password"
-            android:ems="10"
-            android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/textView_password"
-            app:layout_constraintBottom_toBottomOf="@id/textView_password"
-            android:layout_marginStart="@dimen/tool_smargin"
-            android:hint="@string/password"
-            android:autofillHints="Password"
             android:layout_marginEnd="@dimen/tool_mmargin"
+            android:autofillHints="Email"
+            android:ems="10"
+            android:hint="@string/put_here_your_email_address"
+            android:inputType="textPersonName"
+            android:singleLine="true"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/textView_username"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textView_username" />
 
-            android:singleLine="true"/>
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/editText_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/tool_smargin"
+            android:layout_marginEnd="@dimen/tool_mmargin"
+            android:autofillHints="Password"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:singleLine="true"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@id/textView_password"
+            app:layout_constraintEnd_toEndOf="parent"
 
+            app:layout_constraintTop_toTopOf="@id/textView_password" />
 
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/button_login"
             style="@style/Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/login"
-            android:id="@+id/button_login"
-            app:layout_constraintTop_toBottomOf="@id/textView_password"
-            app:layout_constraintStart_toStartOf="@id/textView_login"
             android:layout_marginTop="@dimen/tool_mmargin"
-            android:textSize="18sp"
+            android:text="@string/login"
             android:textAllCaps="false"
-            />
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="@id/textView_login"
+            app:layout_constraintTop_toBottomOf="@id/textView_password" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

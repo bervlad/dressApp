@@ -2,7 +2,6 @@ package com.example.androidtest.utils;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +14,8 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.module.AppGlideModule;
 import com.example.androidtest.R;
-import com.example.androidtest.app.AndroidTest;
 import com.example.androidtest.database.AppDatabase;
-import com.example.androidtest.database.UserData;
 import com.example.androidtest.listeners.OnDressItemClickListener;
 import com.example.androidtest.model.DressItem;
 import com.example.androidtest.model.UserDressItem;
@@ -34,7 +30,6 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
     private Context ctx;
     private OnDressItemClickListener listener;
     FirebaseUser mUser;
-    UserData userData;
     AppDatabase appDatabase;
 
     public ItemRecyclerAdapter(ArrayList<DressItem> items, Context ctx, AppDatabase database) {
@@ -74,15 +69,13 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
 
         Glide.with(holder.dressTypeImage).load(items.get(position).getUri()).placeholder(R.drawable.ic_account_search_outline).into(holder.dressTypeImage);
 
-        //holder.dressTypeImage.setImageDrawable(ContextCompat.getDrawable(ctx, items.get(position).getImg_src()));
         holder.titleCard.setText(items.get(position).getTitle());
         holder.price.setText(items.get(position).getPriceText());
         holder.reviews.setText(items.get(position).getReviewsText());
 
-        if (mUser==null) {
+        if (mUser == null) {
             holder.likedImage.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             holder.likedImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -93,16 +86,13 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
                         holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_pressed_like));
                         addLike(items.get(position));
                     }
-
-                    //items.get(position).setLiked(!items.get(position).isLiked());
                 }
             });
 
-            Log.d ("TAG", "SET: " + appDatabase.userItemDao().getLikesForUser(mUser.getEmail()).toString());
+            Log.d("TAG", "SET: " + appDatabase.userItemDao().getLikesForUser(mUser.getEmail()).toString());
             if (appDatabase.userItemDao().getLikesForUser(mUser.getEmail()).contains(items.get(position).getId())) {
                 holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_pressed_like));
-            }
-            else {
+            } else {
                 holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_unpressed_like));
             }
         }
@@ -110,19 +100,11 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                listener.onItemClick(view,position);
+                listener.onItemClick(view, position);
             }
         });
 
-
-//
-//        if (items.get(position).isLiked()) {
-//            holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_pressed_like));
-//        }  else {
-//            holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_unpressed_like));
-//        }
-
-        if (items.get(position).getOldPriceText()!=null) {
+        if (items.get(position).getOldPriceText() != null) {
             holder.crossedPrice.setVisibility(View.VISIBLE);
             holder.crossedPrice.setText(items.get(position).getOldPriceText());
             holder.crossedPrice.setPaintFlags(holder.crossedPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
@@ -130,15 +112,15 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
             holder.crossedPrice.setVisibility(View.GONE);
         }
 
-        if (items.get(position).getAlert()!=null) {
+        if (items.get(position).getAlert() != null) {
             holder.alert.setVisibility(View.VISIBLE);
             holder.alert.setText(items.get(position).getAlert());
         } else {
             holder.alert.setVisibility(View.INVISIBLE);
         }
 
-        for (int i=0; i<items.get(position).getStars(); i++) {
-            holder.stars.get(i).setColorFilter(ContextCompat.getColor (ctx, R.color.star_filled));
+        for (int i = 0; i < items.get(position).getStars(); i++) {
+            holder.stars.get(i).setColorFilter(ContextCompat.getColor(ctx, R.color.star_filled));
         }
     }
 
@@ -150,43 +132,38 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView dressTypeImage, likedImage;
         TextView titleCard, price, crossedPrice, reviews, alert;
-        ArrayList <ImageView> stars;
+        ArrayList<ImageView> stars;
         View container = itemView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             dressTypeImage = itemView.findViewById(R.id.item_img);
             likedImage = itemView.findViewById(R.id.like);
-            titleCard=itemView.findViewById(R.id.title_card);
-            price=itemView.findViewById(R.id.price);
-            crossedPrice=itemView.findViewById(R.id.crossed_price);
-            reviews=itemView.findViewById(R.id.reviews);
-            alert=itemView.findViewById(R.id.alert);
-            stars=new ArrayList<ImageView>();
-            for (int i = 0; i<5; i++ ) {
-                stars.add((ImageView)itemView.findViewById(itemView.getContext().getResources().
-                        getIdentifier("star_"+Integer.toString(i+1), "id", itemView.getContext().getPackageName())));
+            titleCard = itemView.findViewById(R.id.title_card);
+            price = itemView.findViewById(R.id.price);
+            crossedPrice = itemView.findViewById(R.id.crossed_price);
+            reviews = itemView.findViewById(R.id.reviews);
+            alert = itemView.findViewById(R.id.alert);
+            stars = new ArrayList<ImageView>();
+            for (int i = 0; i < 5; i++) {
+                stars.add((ImageView) itemView.findViewById(itemView.getContext().getResources().
+                        getIdentifier("star_" + Integer.toString(i + 1), "id", itemView.getContext().getPackageName())));
             }
         }
     }
 
-    public void addLike (DressItem item) {
+    public void addLike(DressItem item) {
 
-//            userData.getItems(mUser.getEmail()).add(item.getId());
-//            Log.d("TAG", "Added");
-
-            //sql room Database insert
-            appDatabase.userDressItemDao().insert(new UserDressItem(mUser.getEmail(), item.getId()));
-            Log.d("TAG", "Added item " + item.getId() + " to database for user " + mUser.getEmail());
+        //sql room Database insert
+        appDatabase.userDressItemDao().insert(new UserDressItem(mUser.getEmail(), item.getId()));
+        Log.d("TAG", "Added item " + item.getId() + " to database for user " + mUser.getEmail());
     }
 
-    public void removeLike (DressItem item) {
+    public void removeLike(DressItem item) {
 
-            //userData.getItems(mUser.getEmail()).remove(item.getId());
-
-            //sql room Database delete
-            appDatabase.userDressItemDao().deleteLikeFromUser(mUser.getEmail(), item.getId());
-            Log.d("TAG", "Deleted item " + item.getId() + " to database for user " + mUser.getEmail());
+        //sql room Database delete
+        appDatabase.userDressItemDao().deleteLikeFromUser(mUser.getEmail(), item.getId());
+        Log.d("TAG", "Deleted item " + item.getId() + " to database for user " + mUser.getEmail());
 
     }
 }

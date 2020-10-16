@@ -1,9 +1,10 @@
 package com.example.androidtest.app;
 
 import android.app.Application;
+
 import androidx.room.Room;
+
 import com.example.androidtest.database.AppDatabase;
-import com.example.androidtest.database.UserData;
 import com.example.androidtest.model.DressItem;
 
 import java.util.ArrayList;
@@ -11,7 +12,6 @@ import java.util.ArrayList;
 public class AndroidTest extends Application {
 
     private int basket;
-    private UserData usersWithInfo;
     private ArrayList<DressItem> items;
     private AppDatabase appDatabase;
 
@@ -23,10 +23,6 @@ public class AndroidTest extends Application {
         this.basket = basket;
     }
 
-    public UserData getUsersWithInfo() {
-        return usersWithInfo;
-    }
-
     public AppDatabase getDatabase() {
         return appDatabase;
     }
@@ -35,7 +31,6 @@ public class AndroidTest extends Application {
     public void onCreate() {
         super.onCreate();
         basket = 0;
-        usersWithInfo = new UserData();
 
         this.deleteDatabase("dataUsersDress");
 

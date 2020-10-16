@@ -12,7 +12,6 @@ import android.view.View;
 
 import com.example.androidtest.R;
 import com.example.androidtest.database.AppDatabase;
-import com.example.androidtest.database.UserData;
 import com.example.androidtest.listeners.Constants;
 import com.example.androidtest.listeners.OnDressItemClickListener;
 import com.example.androidtest.model.DressItem;
@@ -26,10 +25,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class SecondActivity extends BaseActivity {
+public class DressChooser extends BaseActivity {
     private RecyclerView recyclerView;
     private ArrayList<DressItem> items;
     private ItemRecyclerAdapter adapter;
@@ -69,16 +69,10 @@ public class SecondActivity extends BaseActivity {
         OnDressItemClickListener listener = new OnDressItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                Intent explicitIntent = new Intent(SecondActivity.this, ThirdActivity.class);
+                Intent explicitIntent = new Intent(DressChooser.this, DressDetails.class);
                 explicitIntent.putExtra(Constants.EXTRA_ITEM, items.get(position));
                 startActivity(explicitIntent);
             }
-
-            @Override
-            public UserData onHeartClick() {
-                return getUserData();
-            }
-
         };
 
         adapter.setListener(listener);

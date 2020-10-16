@@ -15,18 +15,15 @@ import com.example.androidtest.listeners.OnLastFragment;
 import com.example.androidtest.utils.ViewPagerAdapter;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class MainActivity extends BaseActivity {
+public class Introduction extends BaseActivity {
 
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
@@ -55,7 +52,7 @@ public class MainActivity extends BaseActivity {
         viewPager.setAdapter(adapter);
         setListeners();
 
-        if (mAuth.getCurrentUser()!=null) signOut();
+        if (mAuth.getCurrentUser() != null) signOut();
 
 //        mAuth.signOut();
 //        showNameToast(mAuth.getCurrentUser().getDisplayName());
@@ -104,20 +101,20 @@ public class MainActivity extends BaseActivity {
     OnLastFragment onLastFragment = new OnLastFragment() {
         @Override
         public void nextActivity() {
-            Intent explicitIntent = new Intent(MainActivity.this, SecondActivity.class);
+            Intent explicitIntent = new Intent(Introduction.this, DressChooser.class);
             startActivity(explicitIntent);
         }
 
         @Override
         public void login() {
-            Intent explicitIntent = new Intent(MainActivity.this, LoginActivity.class);
+            Intent explicitIntent = new Intent(Introduction.this, LoginActivity.class);
             startActivity(explicitIntent);
             //signIn();
         }
 
         @Override
         public void register() {
-            Intent explicitIntent = new Intent(MainActivity.this, RegisterActivity.class);
+            Intent explicitIntent = new Intent(Introduction.this, RegisterActivity.class);
             startActivity(explicitIntent);
         }
 

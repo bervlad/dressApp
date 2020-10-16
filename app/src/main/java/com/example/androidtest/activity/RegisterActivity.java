@@ -1,14 +1,12 @@
 package com.example.androidtest.activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.androidtest.KeyboardUtils;
 import com.example.androidtest.R;
@@ -40,23 +38,36 @@ public class RegisterActivity extends LogRegActivity {
 
         email = findViewById(R.id.editText_user);
         password = findViewById(R.id.editText_password);
-        user= findViewById(R.id.editText_username);
+        user = findViewById(R.id.editText_username);
         regButton = findViewById(R.id.button_reg);
 
         regButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 KeyboardUtils.hide(RegisterActivity.this);
-                if (mAuth.getCurrentUser()!=null) {showNameToast("Already signed in"); goToList(); return;}
-                if (user.getText()==null || user.getText().toString().trim().isEmpty()){showNameToast("Please enter your name"); return;}
-                if (email.getText()==null || email.getText().toString().trim().isEmpty()){showNameToast("Please enter email"); return;}
-                if (password.getText()==null || password.getText().toString().trim().isEmpty()){showNameToast("Please enter password"); return;}
-                regPassAuth (user.getText().toString(), email.getText().toString(), password.getText().toString(), mAuth);
+                if (mAuth.getCurrentUser() != null) {
+                    showNameToast("Already signed in");
+                    goToList();
+                    return;
+                }
+                if (user.getText() == null || user.getText().toString().trim().isEmpty()) {
+                    showNameToast("Please enter your name");
+                    return;
+                }
+                if (email.getText() == null || email.getText().toString().trim().isEmpty()) {
+                    showNameToast("Please enter email");
+                    return;
+                }
+                if (password.getText() == null || password.getText().toString().trim().isEmpty()) {
+                    showNameToast("Please enter password");
+                    return;
+                }
+                regPassAuth(user.getText().toString(), email.getText().toString(), password.getText().toString(), mAuth);
             }
         });
     }
 
-    private void regPassAuth (final String name, String email, String password, final FirebaseAuth mAuth) {
+    private void regPassAuth(final String name, String email, String password, final FirebaseAuth mAuth) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override

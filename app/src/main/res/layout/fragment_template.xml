@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.FragmentTemplate">
 
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/img"
-        android:layout_height="0dp"
         android:layout_width="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginTop="@dimen/tool_lmargin"
-        android:layout_marginBottom="@dimen/tool_xlmargin"
+        android:layout_height="0dp"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        >
+        android:layout_marginTop="@dimen/tool_lmargin"
+        android:layout_marginBottom="@dimen/tool_xlmargin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
     </androidx.appcompat.widget.AppCompatImageView>
 
@@ -40,47 +39,47 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/tool_smargin"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         android:fontFamily="@font/raleway"
         android:text="Sign In"
         android:textSize="22sp"
-        app:layout_constraintEnd_toStartOf="@id/fragment_slash"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/img"
-        app:layout_constraintHorizontal_chainStyle="packed"
         android:visibility="invisible"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?android:attr/selectableItemBackground"/>
+        app:layout_constraintEnd_toStartOf="@id/fragment_slash"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/img" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/fragment_slash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/tool_smargin"
         android:layout_marginTop="@dimen/tool_smargin"
         android:fontFamily="@font/raleway"
         android:text="|"
         android:textSize="22sp"
-        app:layout_constraintStart_toEndOf="@id/fragment_login"
+        android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@id/fragment_register"
-        app:layout_constraintTop_toBottomOf="@id/img"
-        android:layout_margin="@dimen/tool_smargin"
-        android:visibility="invisible"/>
+        app:layout_constraintStart_toEndOf="@id/fragment_login"
+        app:layout_constraintTop_toBottomOf="@id/img" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/fragment_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/tool_smargin"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
         android:fontFamily="@font/raleway"
         android:text="Sign Up"
         android:textSize="22sp"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/fragment_slash"
-        app:layout_constraintTop_toBottomOf="@id/img"
-        android:visibility="invisible"
-        android:clickable="true"
-        android:focusable="true"
-        android:background="?android:attr/selectableItemBackground"/>
+        app:layout_constraintTop_toBottomOf="@id/img" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/fragment_text"
@@ -99,18 +98,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/tool_mmargin"
-        android:fontFamily="@font/raleway"
-        android:text="@string/skip"
-        android:textSize="16sp"
-        android:textColor="@color/skip"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="@dimen/tool_smargin"
         android:layout_marginBottom="@dimen/tool_smargin"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="?android:attr/selectableItemBackground"
         android:clickable="true"
         android:focusable="true"
-        android:background="?android:attr/selectableItemBackground"/>
+        android:fontFamily="@font/raleway"
+        android:text="@string/skip"
+        android:textColor="@color/skip"
+        android:textSize="16sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,10 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppTheme."
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ThirdActivity"
-    style="@style/AppTheme.">
+    tools:context=".activity.DressDetails">
 
     <include
         android:id="@+id/toolbar"
@@ -16,13 +16,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/tool_mmargin"
+        android:background="@drawable/layout_bg"
         android:fillViewport="true"
         android:scrollIndicators="right"
         android:scrollbarStyle="insideOverlay"
         android:scrollbars="vertical"
-        android:background="@drawable/layout_bg"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/menu_tools1">
+        app:layout_constraintBottom_toTopOf="@id/menu_tools1"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/body"
@@ -43,7 +43,6 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title_card"
-                android:textColor="?attr/colorAccent"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/vsmall_margin"
@@ -53,6 +52,7 @@
                 android:maxLines="1"
                 android:text="Scardian dress"
                 android:textAlignment="viewStart"
+                android:textColor="?attr/colorAccent"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0"
@@ -61,12 +61,12 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/price"
-                android:textColor="?attr/colorAccent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/vsmall_margin"
                 android:fontFamily="@font/roboto"
                 android:text="$ 50.00"
+                android:textColor="?attr/colorAccent"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@id/stars"
@@ -157,8 +157,8 @@
                 style="@style/DropDownMenuTop"
                 android:layout_width="0dp"
                 android:layout_marginTop="@dimen/vsmall_margin"
-                android:spinnerMode="dropdown"
                 android:minHeight="@dimen/button_tool"
+                android:spinnerMode="dropdown"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/title_card"
                 app:layout_constraintTop_toBottomOf="@id/alert" />
@@ -168,8 +168,8 @@
                 style="@style/DropDownMenuTop"
                 android:layout_width="0dp"
                 android:layout_marginTop="@dimen/vsmall_margin"
-                android:spinnerMode="dropdown"
                 android:minHeight="@dimen/button_tool"
+                android:spinnerMode="dropdown"
                 app:layout_constraintEnd_toEndOf="@id/spinner1"
                 app:layout_constraintStart_toStartOf="@id/title_card"
                 app:layout_constraintTop_toBottomOf="@id/spinner1" />
@@ -180,12 +180,12 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/button_tool"
                 android:layout_marginTop="@dimen/tool_smargin"
+                android:clickable="true"
+                android:focusable="true"
                 android:text="@string/add_to_cart"
                 app:layout_constraintStart_toStartOf="@id/title_card"
                 app:layout_constraintTop_toBottomOf="@id/spinner2"
-                app:layout_constraintWidth_percent="0.78"
-                android:clickable="true"
-                android:focusable="true"/>
+                app:layout_constraintWidth_percent="0.78" />
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/spinner3"
@@ -199,104 +199,98 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/desc"
-                android:textColor="?attr/colorAccent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/title_card"
-                app:layout_constraintTop_toBottomOf="@id/addButton"
                 android:layout_marginTop="@dimen/tool_smargin"
-                android:text="@string/description"
                 android:fontFamily="@font/raleway"
-                android:textSize="16sp" />
+                android:text="@string/description"
+                android:textColor="?attr/colorAccent"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@id/title_card"
+                app:layout_constraintTop_toBottomOf="@id/addButton" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/expand"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/spinner"
                 android:layout_marginEnd="@dimen/vsmall_margin"
+                android:src="@drawable/spinner"
+                app:layout_constraintBottom_toBottomOf="@id/desc"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@id/desc"
-                app:layout_constraintBottom_toBottomOf="@id/desc" />
+                app:layout_constraintTop_toTopOf="@id/desc" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/line1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_line"
                 android:layout_marginTop="@dimen/vsmall_margin"
-                app:layout_constraintTop_toBottomOf="@id/desc"
+                android:src="@drawable/ic_line"
                 android:visibility="invisible"
-                />
+                app:layout_constraintTop_toBottomOf="@id/desc" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/desc_tab"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:layout_constraintTop_toBottomOf="@id/line1"
+                android:orientation="vertical"
                 app:layout_constraintStart_toStartOf="@id/desc"
-                android:orientation="vertical">
+                app:layout_constraintTop_toBottomOf="@id/line1">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/desc_text"
-                    android:textColor="?attr/colorAccent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/raleway"
-                    android:textSize="14sp"
-                    android:text="@string/desc" />
+                    android:text="@string/desc"
+                    android:textColor="?attr/colorAccent"
+                    android:textSize="14sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/code_dress"
-                    android:textColor="?attr/colorAccent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/raleway"
-                    android:textSize="12sp"
                     android:layout_marginTop="@dimen/tool_smargin"
+                    android:fontFamily="@font/raleway"
                     android:text="Product Code: 43434-10"
-                    />
+                    android:textColor="?attr/colorAccent"
+                    android:textSize="12sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/category_dress"
-                    android:textColor="?attr/colorAccent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/raleway"
-                    android:textSize="12sp"
                     android:layout_marginTop="@dimen/vsmall_margin"
+                    android:fontFamily="@font/raleway"
                     android:text="Category: sweatwear"
-                    />
+                    android:textColor="?attr/colorAccent"
+                    android:textSize="12sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/material_dress"
-                    android:textColor="?attr/colorAccent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/raleway"
-                    android:textSize="12sp"
                     android:layout_marginTop="@dimen/vsmall_margin"
+                    android:fontFamily="@font/raleway"
                     android:text="Material: Cotton"
-                    />
+                    android:textColor="?attr/colorAccent"
+                    android:textSize="12sp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/country_dress"
-                    android:textColor="?attr/colorAccent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/raleway"
-                    android:textSize="12sp"
                     android:layout_marginTop="@dimen/vsmall_margin"
+                    android:fontFamily="@font/raleway"
                     android:text="Country: Germany"
-                    />
+                    android:textColor="?attr/colorAccent"
+                    android:textSize="12sp" />
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/line2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_line"
                     android:layout_marginTop="@dimen/vsmall_margin"
-                    />
+                    android:src="@drawable/ic_line" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -308,11 +302,10 @@
 
     <include
         android:id="@+id/menu_tools1"
-        android:layout_height="55dp"
-        android:layout_width="match_parent"
-        app:layout_constraintTop_toBottomOf="@id/scrollView"
-        app:layout_constraintBottom_toBottomOf="parent"
         layout="@layout/bottom_menu"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/scrollView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

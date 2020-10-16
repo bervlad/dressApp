@@ -37,8 +37,8 @@ public interface UserDressItemDao {
     @Query("DELETE FROM userDressItemsTable")
     void deleteAll();
 
-    @Query ("DELETE FROM userDressItemsTable WHERE email= :email AND dressId= :dressId")
-    void deleteLikeFromUser (String email, String dressId);
+    @Query("DELETE FROM userDressItemsTable WHERE email= :email AND dressId= :dressId")
+    void deleteLikeFromUser(String email, String dressId);
 
     @Query("SELECT * FROM userDressItemsTable")
     List<UserDressItem> checkIfEmpty();

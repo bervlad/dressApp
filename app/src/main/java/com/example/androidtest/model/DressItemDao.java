@@ -14,7 +14,7 @@ import java.util.List;
 public interface DressItemDao {
 
     @Query("SELECT * FROM dressItemsTable")
-    LiveData<List<DressItem> > getAll();
+    LiveData<List<DressItem>> getAll();
 
     @Query("SELECT * FROM dressItemsTable WHERE id = :id")
     LiveData<DressItem> getById(String id);

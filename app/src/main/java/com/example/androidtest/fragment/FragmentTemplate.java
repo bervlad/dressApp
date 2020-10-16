@@ -91,50 +91,44 @@ public class FragmentTemplate extends Fragment {
         textViewText = v.findViewById(R.id.fragment_text);
         textViewText.setText(text);
 
-        imageView=v.findViewById(R.id.img);
+        imageView = v.findViewById(R.id.img);
         imageView.setImageResource(img);
 
         textViewTitle = v.findViewById(R.id.fragment_title);
 
         if (last) {
             textViewTitle.setVisibility(View.INVISIBLE);
-
-            textViewSkip=v.findViewById(R.id.fragment_skip);
+            textViewSkip = v.findViewById(R.id.fragment_skip);
             textViewSkip.setVisibility(View.VISIBLE);
-
-            loginTextView=v.findViewById(R.id.fragment_login);
+            loginTextView = v.findViewById(R.id.fragment_login);
             loginTextView.setVisibility(View.VISIBLE);
             loginTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (onLastFragment !=null) {
+                    if (onLastFragment != null) {
                         onLastFragment.login();
                     }
                 }
             });
-
-
-            registerTextView=v.findViewById(R.id.fragment_register);
+            registerTextView = v.findViewById(R.id.fragment_register);
             registerTextView.setVisibility(View.VISIBLE);
             registerTextView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (onLastFragment !=null) {
+                    if (onLastFragment != null) {
                         onLastFragment.register();
                     }
                 }
             });
 
-            slashTextView=v.findViewById(R.id.fragment_slash);
+            slashTextView = v.findViewById(R.id.fragment_slash);
             slashTextView.setVisibility(View.VISIBLE);
-
-            registerTextView.setTextColor(ContextCompat.getColor (Objects.requireNonNull(getContext()), R.color.skip));
-            loginTextView.setTextColor(ContextCompat.getColor (getContext(), R.color.skip));
-
+            registerTextView.setTextColor(ContextCompat.getColor(Objects.requireNonNull(getContext()), R.color.skip));
+            loginTextView.setTextColor(ContextCompat.getColor(getContext(), R.color.skip));
             textViewSkip.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (onLastFragment !=null) {
+                    if (onLastFragment != null) {
                         onLastFragment.nextActivity();
                     }
                 }
@@ -143,12 +137,11 @@ public class FragmentTemplate extends Fragment {
         } else {
             textViewTitle.setText(title);
         }
-
         return v;
     }
 
-    public void setListener (OnLastFragment listener) {
-        this.onLastFragment =listener;
+    public void setListener(OnLastFragment listener) {
+        this.onLastFragment = listener;
     }
 
 }

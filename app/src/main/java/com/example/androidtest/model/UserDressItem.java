@@ -4,18 +4,17 @@ package com.example.androidtest.model;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
-@Entity(tableName = "userDressItemsTable", primaryKeys = {"email","dressId"})
+@Entity(tableName = "userDressItemsTable", primaryKeys = {"email", "dressId"})
 
 public class UserDressItem {
 
     @NonNull
-    @ColumnInfo(name="email")
+    @ColumnInfo(name = "email")
     private String email;
 
     @NonNull
-    @ColumnInfo(name="dressId")
+    @ColumnInfo(name = "dressId")
     private String dressId;
 
     public UserDressItem(String email, String dressId) {

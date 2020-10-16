@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/vsmall_margin"
     android:layout_marginEnd="@dimen/vsmall_margin"
-    android:layout_marginBottom="@dimen/tool_smargin"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_marginBottom="@dimen/tool_smargin">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/item_img"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:scaleType="fitCenter"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/like"
-        android:src="@drawable/ic_unpressed_like"
-        android:layout_marginTop="@dimen/vsmall_margin"
-        android:layout_marginEnd="@dimen/vsmall_margin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/item_img"
-        app:layout_constraintEnd_toEndOf="@id/item_img"/>
+        android:layout_marginTop="@dimen/vsmall_margin"
+        android:layout_marginEnd="@dimen/vsmall_margin"
+        android:src="@drawable/ic_unpressed_like"
+        app:layout_constraintEnd_toEndOf="@id/item_img"
+        app:layout_constraintTop_toTopOf="@+id/item_img" />
 
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -33,21 +32,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/raleway"
-        app:layout_constraintTop_toBottomOf="@id/item_img"
         android:text="Scardian dress"
-        android:textSize="16sp"
         android:textAlignment="viewStart"
-        />
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/item_img" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto"
-        android:textSize="16sp"
-        android:text="$ 50.00"
-        android:textStyle="bold"
         android:layout_marginTop="@dimen/vvsmall_margin"
+        android:fontFamily="@font/roboto"
+        android:text="$ 50.00"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
 
         app:layout_constraintTop_toBottomOf="@id/title_card" />
@@ -56,39 +54,37 @@
         android:id="@+id/crossed_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto"
-        android:textSize="12sp"
-        android:text="@string/crossed"
         android:layout_marginStart="@dimen/vsmall_margin"
-        app:layout_constraintTop_toTopOf="@id/price"
         android:layout_marginTop="@dimen/vvsmall_margin"
+        android:fontFamily="@font/roboto"
+        android:text="@string/crossed"
         android:textColor="@color/minor"
+        android:textSize="12sp"
+        android:visibility="visible"
         app:layout_constraintStart_toEndOf="@id/price"
-        android:visibility="visible" />
+        app:layout_constraintTop_toTopOf="@id/price" />
 
     <LinearLayout
         android:id="@+id/stars"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="clip_horizontal"
-        app:layout_constraintTop_toBottomOf="@id/price"
-        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="@dimen/vsmall_margin"
-        >
+        android:gravity="clip_horizontal"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/price">
+
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/star_1"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:src="@drawable/ic_star"
-            />
+            android:src="@drawable/ic_star" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/star_2"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:src="@drawable/ic_star"
-            />
+            android:src="@drawable/ic_star" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/star_3"
@@ -106,8 +102,7 @@
             android:id="@+id/star_5"
             android:layout_width="15dp"
             android:layout_height="15dp"
-            android:src="@drawable/ic_star"
-            />
+            android:src="@drawable/ic_star" />
 
     </LinearLayout>
 
@@ -116,26 +111,23 @@
         android:id="@+id/reviews"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="(80)"
         android:textSize="14sp"
-        android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@id/stars"
-        app:layout_constraintStart_toEndOf="@id/stars"/>
+        app:layout_constraintStart_toEndOf="@id/stars" />
 
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/alert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/reviews"
-        app:layout_constraintStart_toStartOf="parent"
-        android:textColor="@color/alert"
-        android:text="Remain: 2 days 2 hours"
         android:layout_marginTop="@dimen/vsmall_margin"
+        android:text="Remain: 2 days 2 hours"
+        android:textColor="@color/alert"
         android:visibility="visible"
-        />
-
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reviews" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,14 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatEditText;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import com.example.androidtest.KeyboardUtils;
 import com.example.androidtest.R;
-import com.example.androidtest.listeners.Constants;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -44,9 +42,19 @@ public class LoginActivity extends LogRegActivity {
             @Override
             public void onClick(View view) {
                 KeyboardUtils.hide(LoginActivity.this);
-                if (mAuth.getCurrentUser()!=null) {showNameToast("Already signed in"); goToList(); return;}
-                if (email.getText()==null || email.getText().toString().trim().isEmpty()){showNameToast("Please enter email"); return;}
-                if (password.getText()==null || password.getText().toString().trim().isEmpty()){showNameToast("Please enter password"); return;}
+                if (mAuth.getCurrentUser() != null) {
+                    showNameToast("Already signed in");
+                    goToList();
+                    return;
+                }
+                if (email.getText() == null || email.getText().toString().trim().isEmpty()) {
+                    showNameToast("Please enter email");
+                    return;
+                }
+                if (password.getText() == null || password.getText().toString().trim().isEmpty()) {
+                    showNameToast("Please enter password");
+                    return;
+                }
                 logPassAuth(email.getText().toString(), password.getText().toString(), mAuth);
             }
         });

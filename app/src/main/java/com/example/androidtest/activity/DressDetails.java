@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
-public class ThirdActivity extends BaseActivity {
+public class DressDetails extends BaseActivity {
     private DressItem dressItem;
 
     @Override
@@ -43,14 +43,14 @@ public class ThirdActivity extends BaseActivity {
 
         final LinearLayoutCompat desc = findViewById(R.id.desc_tab);
         final NestedScrollView scroll = findViewById(R.id.scrollView);
-        final AppCompatImageView line =findViewById(R.id.line1);
+        final AppCompatImageView line = findViewById(R.id.line1);
         AppCompatButton button = findViewById(R.id.addButton);
         final AppCompatImageView circle = findViewById(R.id.basket_circle);
 
 
         //getting model from parcel
         if (getIntent().getExtras() != null) {
-           dressItem = getIntent().getParcelableExtra(Constants.EXTRA_ITEM);
+            dressItem = getIntent().getParcelableExtra(Constants.EXTRA_ITEM);
         }
 
         //init views
@@ -58,20 +58,20 @@ public class ThirdActivity extends BaseActivity {
         TextView title = findViewById(R.id.title_card);
         TextView price = findViewById(R.id.price);
         TextView crossed_price = findViewById(R.id.crossed_price);
-        ArrayList<ImageView> stars=new ArrayList<ImageView>();
-        for (int i = 0; i<5; i++ ) {
+        ArrayList<ImageView> stars = new ArrayList<ImageView>();
+        for (int i = 0; i < 5; i++) {
             stars.add((ImageView) findViewById(getResources().
-                    getIdentifier("star_"+Integer.toString(i+1), "id", getPackageName())));
+                    getIdentifier("star_" + Integer.toString(i + 1), "id", getPackageName())));
         }
-        TextView reviews=findViewById(R.id.reviews);
-        TextView alert=findViewById(R.id.alert);
+        TextView reviews = findViewById(R.id.reviews);
+        TextView alert = findViewById(R.id.alert);
 
 
         //Setting data
         Glide.with(avatar).load(dressItem.getUri()).placeholder(R.drawable.ic_account_search_outline).into(avatar);
 
-        for (int i=0; i<dressItem.getStars(); i++) {
-            stars.get(i).setColorFilter(ContextCompat.getColor (this, R.color.star_filled));
+        for (int i = 0; i < dressItem.getStars(); i++) {
+            stars.get(i).setColorFilter(ContextCompat.getColor(this, R.color.star_filled));
         }
 
         title.setText(dressItem.getTitle());
@@ -90,15 +90,24 @@ public class ThirdActivity extends BaseActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentUser==null) {showNameToast("Please login"); return;}
-                if (spinnerSize.getSelectedItem().toString().equals("Size")) {showNameToast("Please specify size"); return;}
-                if (spinnerColor.getSelectedItem().toString().equals("Color")) {showNameToast("Please specify color"); return;}
-                    int quantity = Integer.parseInt(quant.getSelectedItem().toString());
-                    int num = (((AndroidTest) getApplication()).getBasket()) + quantity;
-                    ((AndroidTest) getApplication()).setBasket(num);
-                    Intent explicitIntent = new Intent(ThirdActivity.this, SecondActivity.class);
-                    startActivity(explicitIntent);
+                if (currentUser == null) {
+                    showNameToast("Please login");
+                    return;
                 }
+                if (spinnerSize.getSelectedItem().toString().equals("Size")) {
+                    showNameToast("Please specify size");
+                    return;
+                }
+                if (spinnerColor.getSelectedItem().toString().equals("Color")) {
+                    showNameToast("Please specify color");
+                    return;
+                }
+                int quantity = Integer.parseInt(quant.getSelectedItem().toString());
+                int num = (((AndroidTest) getApplication()).getBasket()) + quantity;
+                ((AndroidTest) getApplication()).setBasket(num);
+                Intent explicitIntent = new Intent(DressDetails.this, DressChooser.class);
+                startActivity(explicitIntent);
+            }
         });
 
         final AppCompatImageView expand = findViewById(R.id.expand);
@@ -116,8 +125,12 @@ public class ThirdActivity extends BaseActivity {
                     desc.setVisibility(VISIBLE);
                     line.setVisibility(INVISIBLE);
                     expand.setRotation(180);
-                    scroll.post(new Runnable() { @Override public void run() {
-                        scroll.fullScroll(View.FOCUS_DOWN); } });
+                    scroll.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            scroll.fullScroll(View.FOCUS_DOWN);
+                        }
+                    });
                 }
             }
         });
