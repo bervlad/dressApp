@@ -32,8 +32,6 @@ public class AndroidTest extends Application {
         super.onCreate();
         basket = 0;
 
-        this.deleteDatabase("dataUsersDress");
-
         appDatabase = Room.databaseBuilder(this, AppDatabase.class, "dataUsersDress")
                 .allowMainThreadQueries()
                 .build();
