@@ -53,10 +53,6 @@ public class Introduction extends BaseActivity {
         setListeners();
 
         if (mAuth.getCurrentUser() != null) signOut();
-
-//        mAuth.signOut();
-//        showNameToast(mAuth.getCurrentUser().getDisplayName());
-
     }
 
     @Override
@@ -152,12 +148,9 @@ public class Introduction extends BaseActivity {
                             Log.d(TAGG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             onLastFragment.nextActivity();
-//                            updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAGG, "signInWithCredential:failure", task.getException());
-//                            Snackbar.make(mBinding.mainLayout, "Authentication Failed.", Snackbar.LENGTH_SHORT).show();
-//                            updateUI(null);
                         }
                     }
                 });
