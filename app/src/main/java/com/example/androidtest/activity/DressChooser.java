@@ -111,6 +111,8 @@ public class DressChooser extends BaseActivity {
 
     private void setItems(DataSnapshot dataSnapshot) {
 
+        ArrayList <DressItem> tempList = new ArrayList<>();
+
         for (DataSnapshot ds : dataSnapshot.getChildren()) {
             String id = ds.child("id").getValue(String.class);
             String img_src = ds.child("img_src").getValue(String.class);
@@ -122,25 +124,36 @@ public class DressChooser extends BaseActivity {
             int reviews = ds.child("reviews").getValue(Integer.class);
             DressItem item = new DressItem(id, img_src, title, alert, price, oldPrice, stars, reviews);
 
-            setUriAndAddtoSQL(item);
+            setUriAndAddtoSQL(item, tempList, dataSnapshot);
         }
+
     }
 
-    private void setUriAndAddtoSQL(DressItem item) {
+    private void setUriAndAddtoSQL(DressItem item, ArrayList <DressItem> tempList, DataSnapshot dataSnapshot) {
         String id = item.getImg_src();
         mStorageRef.child("images/" + id + ".png").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Log.d("TAG", "Uri link for " + item.getTitle() + " obtained: " + uri.toString());
                 item.setUri(uri.toString());
-                database.dressItemDao().insert(item);
+                tempList.add(item);
+                checkAndAddToDB(tempList, dataSnapshot);
+
+                //database.dressItemDao().insert(item);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 Log.d("TAG", "No image found");
-                database.dressItemDao().insert(item);
+                tempList.add(item);
+                checkAndAddToDB(tempList, dataSnapshot);
             }
         });
+    }
+
+    private void checkAndAddToDB(ArrayList<DressItem> tempList, DataSnapshot dataSnapshot) {
+        if (tempList.size()==dataSnapshot.getChildrenCount()) {
+            database.dressItemDao().insert(tempList);
+        }
     }
 }
