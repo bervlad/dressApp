@@ -28,34 +28,44 @@ import org.jetbrains.annotations.NotNull;
 
 public class DressItem implements Parcelable {
 
-    @ColumnInfo (name="image")
+    @ColumnInfo(name = "image")
     private String img_src;
 
-    @ColumnInfo (name="title")
+    @ColumnInfo(name = "title")
     private String title;
 
-    @ColumnInfo (name="alert")
+    @ColumnInfo(name = "alert")
     private String alert;
 
-    @ColumnInfo (name="price")
+    @ColumnInfo(name = "price")
     private int price;
 
-    @ColumnInfo (name="oldprice")
+    @ColumnInfo(name = "oldprice")
     private int oldPrice;
 
-    @ColumnInfo (name="stars")
+    @ColumnInfo(name = "stars")
     private int stars;
 
-    @ColumnInfo (name="reviews")
+    @ColumnInfo(name = "reviews")
     private int reviews;
 
-    @ColumnInfo (name="links")
+    @ColumnInfo(name = "links")
     private String uri;
-
 
     @PrimaryKey
     @NonNull
     private String id;
+
+    public DressItem(String id, String img_src, String title, String alert, int price, int oldPrice, int stars, int reviews) {
+        this.img_src = img_src;
+        this.title = title;
+        this.alert = alert;
+        this.price = price;
+        this.oldPrice = oldPrice;
+        this.stars = stars;
+        this.reviews = reviews;
+        this.id = id;
+    }
 
     public String getUri() {
         return uri;
@@ -69,18 +79,6 @@ public class DressItem implements Parcelable {
     public String getId() {
         return id;
     }
-
-    public DressItem(String id, String img_src, String title, String alert, int price, int oldPrice, int stars, int reviews) {
-        this.img_src = img_src;
-        this.title = title;
-        this.alert = alert;
-        this.price = price;
-        this.oldPrice = oldPrice;
-        this.stars = stars;
-        this.reviews = reviews;
-        this.id=id;
-    }
-
 
     public void setTitle(String title) {
         this.title = title;
@@ -127,8 +125,9 @@ public class DressItem implements Parcelable {
     }
 
     public String getOldPriceText() {
-        if (oldPrice!=-1) {
-        return "$ " + Integer.toString(oldPrice);} else return null;
+        if (oldPrice != -1) {
+            return "$ " + Integer.toString(oldPrice);
+        } else return null;
     }
 
     public int getStars() {
@@ -140,7 +139,7 @@ public class DressItem implements Parcelable {
     }
 
     public String getReviewsText() {
-        return "("+ Integer.toString(reviews) +")";
+        return "(" + Integer.toString(reviews) + ")";
     }
 
     public String getImg_src() {
@@ -150,7 +149,6 @@ public class DressItem implements Parcelable {
     public void setImg_src(String img_src) {
         this.img_src = img_src;
     }
-
 
 
     @Override
@@ -172,7 +170,7 @@ public class DressItem implements Parcelable {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.Q)
-    protected DressItem (Parcel in) {
+    protected DressItem(Parcel in) {
         img_src = in.readString();
         title = in.readString();
         alert = in.readString();

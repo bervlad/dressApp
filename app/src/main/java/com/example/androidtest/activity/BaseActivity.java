@@ -42,7 +42,6 @@ public abstract class BaseActivity extends AppCompatActivity  {
 
         mSignInClient = GoogleSignIn.getClient(this, gso);
 
-        // ...
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
     }

@@ -1,16 +1,10 @@
 package com.example.androidtest.app;
 
 import android.app.Application;
-import android.net.Uri;
-
 import androidx.room.Room;
-
-import com.example.androidtest.R;
 import com.example.androidtest.database.AppDatabase;
 import com.example.androidtest.database.UserData;
 import com.example.androidtest.model.DressItem;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 
@@ -20,7 +14,6 @@ public class AndroidTest extends Application {
     private UserData usersWithInfo;
     private ArrayList<DressItem> items;
     private AppDatabase appDatabase;
-
 
     public int getBasket() {
         return basket;
@@ -34,30 +27,6 @@ public class AndroidTest extends Application {
         return usersWithInfo;
     }
 
-    public void setUsersWithInfo(UserData usersWithInfo) {
-        this.usersWithInfo = usersWithInfo;
-    }
-
-    public ArrayList<DressItem> getItems () {
-        return items;
-    }
-
-    public ArrayList<DressItem> initNewArItems () {
-        items = new ArrayList<DressItem>();
-        return items;
-    }
-
-    public void initItems () {
-
-        //items = new ArrayList<DressItem>();
-        items.add(new DressItem("1", "1",  "Hello",null, 100, 150, 3, 2));
-        items.add(new DressItem("2", "2", "Hello2", null, 140, 170, 4, 3));
-        items.add(new DressItem("3", "3", "Hello3", "Important", 18, -1, 1, 10));
-        items.add(new DressItem("4", "4", "Hello4", "Important", 16, -1, 5, 14));
-        items.add(new DressItem("5", "2", "Hello6", null, 13, -1, 3, 13));
-        items.add(new DressItem("6", "4", "Hello7", "Important", 13, -1, 3, 13));
-    }
-
     public AppDatabase getDatabase() {
         return appDatabase;
     }
@@ -65,16 +34,13 @@ public class AndroidTest extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        basket=0;
+        basket = 0;
         usersWithInfo = new UserData();
 
-//        this.deleteDatabase("dataUsersDress");
-        //appDatabase.dressItemDao().deleteAll();
+        this.deleteDatabase("dataUsersDress");
 
         appDatabase = Room.databaseBuilder(this, AppDatabase.class, "dataUsersDress")
                 .allowMainThreadQueries()
                 .build();
-
-        //appDatabase.dressItemDao().deleteAll();
     }
 }
