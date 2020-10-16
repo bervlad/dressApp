@@ -29,7 +29,7 @@ public class RegisterActivity extends LogRegActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         initToolbarWithNavigation("Registration", false);
 
@@ -69,7 +69,7 @@ public class RegisterActivity extends LogRegActivity {
 
     private void regPassAuth(final String name, String email, String password, final FirebaseAuth mAuth) {
         mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {

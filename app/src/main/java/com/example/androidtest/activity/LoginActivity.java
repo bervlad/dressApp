@@ -27,7 +27,7 @@ public class LoginActivity extends LogRegActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
-        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         initToolbarWithNavigation("Login page", false);
 

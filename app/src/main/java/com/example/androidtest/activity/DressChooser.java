@@ -139,7 +139,6 @@ public class DressChooser extends BaseActivity {
                 tempList.add(item);
                 checkAndAddToDB(tempList, dataSnapshot);
 
-                //database.dressItemDao().insert(item);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
