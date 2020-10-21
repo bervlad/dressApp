@@ -97,7 +97,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void signOut() {
-        //initAuth();
+        initAuth();
         // Firebase sign out
         mAuth.signOut();
 
