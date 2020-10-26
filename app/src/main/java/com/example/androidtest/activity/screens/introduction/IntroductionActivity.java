@@ -1,4 +1,4 @@
-package com.example.androidtest.activity;
+package com.example.androidtest.activity.screens.introduction;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -10,6 +10,10 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.androidtest.R;
+import com.example.androidtest.activity.base.BaseActivity;
+import com.example.androidtest.activity.DressChooser;
+import com.example.androidtest.activity.LoginActivity;
+import com.example.androidtest.activity.RegisterActivity;
 import com.example.androidtest.fragment.FragmentTemplate;
 import com.example.androidtest.listeners.OnLastFragment;
 import com.example.androidtest.utils.ViewPagerAdapter;
@@ -20,11 +24,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
-public class Introduction extends BaseActivity {
+public class IntroductionActivity extends BaseActivity {
 
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
@@ -36,7 +39,7 @@ public class Introduction extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //initAuth();
+        initAuth();
 
         setContentView(R.layout.activity_main);
 
@@ -46,14 +49,13 @@ public class Introduction extends BaseActivity {
         FragmentTemplate fragmentTwo = FragmentTemplate.newInstance("Fragment two", "there we went", R.drawable.icon2, false);
         FragmentTemplate fragmentThree = FragmentTemplate.newInstance("there we went", R.drawable.icon3, true);
         fragmentThree.setListener(onLastFragment);
-        adapter.addFragment(fragmentOne, "FrOne");
-        adapter.addFragment(fragmentTwo, "FrTwo");
-        adapter.addFragment(fragmentThree, "FrThree");
+        adapter.addFragment(fragmentOne);
+        adapter.addFragment(fragmentTwo);
+        adapter.addFragment(fragmentThree);
 
         viewPager.setAdapter(adapter);
         setListeners();
 
-        mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() != null) signOut();
     }
 
@@ -99,20 +101,20 @@ public class Introduction extends BaseActivity {
     OnLastFragment onLastFragment = new OnLastFragment() {
         @Override
         public void nextActivity() {
-            Intent explicitIntent = new Intent(Introduction.this, DressChooser.class);
+            Intent explicitIntent = new Intent(IntroductionActivity.this, DressChooser.class);
             startActivity(explicitIntent);
         }
 
         @Override
         public void login() {
-            Intent explicitIntent = new Intent(Introduction.this, LoginActivity.class);
+            Intent explicitIntent = new Intent(IntroductionActivity.this, LoginActivity.class);
             startActivity(explicitIntent);
             //signIn();
         }
 
         @Override
         public void register() {
-            Intent explicitIntent = new Intent(Introduction.this, RegisterActivity.class);
+            Intent explicitIntent = new Intent(IntroductionActivity.this, RegisterActivity.class);
             startActivity(explicitIntent);
         }
 

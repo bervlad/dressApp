@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.androidtest.R;
+import com.example.androidtest.activity.base.BaseActivity;
 import com.example.androidtest.database.AppDatabase;
 import com.example.androidtest.listeners.Constants;
 import com.example.androidtest.listeners.OnDressItemClickListener;
@@ -67,12 +68,19 @@ public class DressChooser extends BaseActivity {
     private void adapterInit() {
         adapter = new ItemRecyclerAdapter(items, this, getDatabase());
         OnDressItemClickListener listener = new OnDressItemClickListener() {
+
             @Override
-            public void onItemClick(View v, int position) {
+            public void onItemClick(int position) {
                 Intent explicitIntent = new Intent(DressChooser.this, DressDetails.class);
                 explicitIntent.putExtra(Constants.EXTRA_ITEM, items.get(position));
                 startActivity(explicitIntent);
             }
+
+            @Override
+            public void onItemClick(View v, int position) {
+
+            }
+
         };
 
         adapter.setListener(listener);

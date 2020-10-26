@@ -1,4 +1,4 @@
-package com.example.androidtest.activity;
+package com.example.androidtest.activity.base;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
