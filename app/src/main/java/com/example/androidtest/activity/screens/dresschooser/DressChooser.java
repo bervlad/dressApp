@@ -87,6 +87,7 @@ public class DressChooser extends BaseActivity implements DressChooserContract.V
 
     @Override
     public void observeItems(LiveData<List<DressItem>> itemsLiveData) {
+
         itemsLiveData.observe(this, (List<DressItem> dressItems) -> {
             items.clear();
             items.addAll(dressItems);
@@ -95,7 +96,12 @@ public class DressChooser extends BaseActivity implements DressChooserContract.V
     }
 
     @Override
-    public void setHeart(String itemId, Boolean isPressed) {
+    public void setHeart(Boolean isPressed) {
         adapter.getmHolder(isPressed);
+    }
+
+    @Override
+    public void notifyChange() {
+        adapter.notifyDataSetChanged();
     }
 }

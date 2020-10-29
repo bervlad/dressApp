@@ -14,16 +14,21 @@ import com.example.androidtest.model.DressItem;
 import com.example.androidtest.model.UserDressItem;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.security.acl.Owner;
 import java.util.HashSet;
 import java.util.List;
 
 public class DressChooserPresenter extends BasePresenterClass implements DressChooserContract.Presenter {
 
     AppDatabase database;
+    Owner owner;
 
     DressChooserContract.View view;
 
+
+
     public DressChooserPresenter(AppCompatActivity activity) {
+
         super(activity);
     }
 
@@ -33,6 +38,7 @@ public class DressChooserPresenter extends BasePresenterClass implements DressCh
             database = super.getDatabase();
             if (database != null) {
                 LiveData<List<DressItem>> liveItemData = database.dressItemDao().getAll();
+                //liveItemData.observe(owner, );
                 view.observeItems(liveItemData);
             }
         }
@@ -56,19 +62,25 @@ public class DressChooserPresenter extends BasePresenterClass implements DressCh
         FirebaseUser mUser = getUser();
         AppDatabase database = getDatabase();
         if (database.userItemDao().getLikesForUser(mUser.getEmail()).contains(itemId)) {
-            view.setHeart(itemId, false);
+//            view.setHeart(itemId, false);
             database.userDressItemDao().deleteLikeFromUser(mUser.getEmail(), itemId);
         } else {
-            view.setHeart(itemId, true);
+//            view.setHeart(itemId, true);
             database.userDressItemDao().insert(new UserDressItem(mUser.getEmail(), itemId));
         }
+
+        view.notifyChange();
     }
 
     @Override
     public void showHeart(String itemId) {
         FirebaseUser mUser = getUser();
         AppDatabase database = getDatabase();
-        view.setHeart(itemId, database.userItemDao().getLikesForUser(mUser.getEmail()).contains(itemId));
+        view.setHeart(database.userItemDao().getLikesForUser(mUser.getEmail()).contains(itemId));
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
     }
 
 }

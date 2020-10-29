@@ -46,6 +46,7 @@ public class AndroidTest extends Application {
         basketItems = new HashSet<>();
         fireBase = new FireBase();
 
+
         appDatabase = Room.databaseBuilder(this, AppDatabase.class, "dataUsersDress")
                 .allowMainThreadQueries()
                 .build();

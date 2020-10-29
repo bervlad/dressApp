@@ -15,7 +15,8 @@ public interface DressChooserContract {
 
     interface View extends BaseView<DressChooserContract.Presenter> {
         void observeItems(LiveData<List<DressItem>> itemsLiveData);
-        void setHeart (String itemId, Boolean pressed);
+        void setHeart (Boolean pressed);
+        void notifyChange ();
     }
 
     interface Presenter extends BasePresenter {
