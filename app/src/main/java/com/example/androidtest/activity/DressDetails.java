@@ -16,14 +16,17 @@ import androidx.core.widget.NestedScrollView;
 
 import com.bumptech.glide.Glide;
 import com.example.androidtest.activity.base.BaseActivity;
+import com.example.androidtest.activity.screens.dresschooser.DressChooser;
 import com.example.androidtest.app.AndroidTest;
 import com.example.androidtest.R;
 import com.example.androidtest.listeners.Constants;
+import com.example.androidtest.model.BasketItem;
 import com.example.androidtest.model.DressItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
@@ -82,8 +85,8 @@ public class DressDetails extends BaseActivity {
         alert.setText(dressItem.getAlert());
 
         //setting default values
-        final Spinner spinnerSize = setSpinner(R.id.spinner1, new String[]{"Size", "2", "three"});
-        final Spinner spinnerColor = setSpinner(R.id.spinner2, new String[]{"Color", "2", "three"});
+        final Spinner spinnerSize = setSpinner(R.id.spinner1, new String[]{"Size", "M", "L", "XL"});
+        final Spinner spinnerColor = setSpinner(R.id.spinner2, new String[]{"Color", "White", "Black"});
         final Spinner quant = setSpinner(R.id.spinner3, new String[]{"1", "2", "3"});
 
 

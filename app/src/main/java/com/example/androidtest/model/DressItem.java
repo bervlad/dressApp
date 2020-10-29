@@ -40,6 +40,7 @@ public class DressItem implements Parcelable {
     @ColumnInfo(name = "links")
     private String uri;
 
+
     @PrimaryKey
     @NonNull
     private String id;

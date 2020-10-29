@@ -15,12 +15,8 @@ public class AndroidTest extends Application {
     private ArrayList<DressItem> items;
     private AppDatabase appDatabase;
 
-    public int getBasket() {
-        return basket;
-    }
-
-    public void setBasket(int basket) {
-        this.basket = basket;
+    public HashSet<BasketItem> getBasketItems() {
+        return basketItems;
     }
 
     public AppDatabase getDatabase() {
@@ -30,7 +26,7 @@ public class AndroidTest extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        basket = 0;
+        basketItems = new HashSet<>();
 
         appDatabase = Room.databaseBuilder(this, AppDatabase.class, "dataUsersDress")
                 .allowMainThreadQueries()

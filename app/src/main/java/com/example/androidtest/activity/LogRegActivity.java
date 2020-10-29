@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.example.androidtest.activity.base.BaseActivity;
+import com.example.androidtest.activity.screens.dresschooser.DressChooser;
 import com.example.androidtest.database.AppDatabase;
 import com.example.androidtest.listeners.Constants;
 import com.example.androidtest.model.UserItem;

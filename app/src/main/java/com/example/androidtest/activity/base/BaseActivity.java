@@ -33,16 +33,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     public FirebaseAuth mAuth;
 
     public void initAuth() {
-        // Configure Google Sign In
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        mSignInClient = GoogleSignIn.getClient(this, gso);
-
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+
+        if (mAuth.getCurrentUser() != null) {
+            mAuth.signOut();
+            ((AndroidTest) getApplication()).getBasketItems().clear();
+        }
+
     }
 
 
@@ -85,7 +83,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         //basket init
         basketText = findViewById(R.id.basket_text);
         circle = findViewById(R.id.basket_circle);
-        int num = ((AndroidTest) getApplication()).getBasket();
+        int num = ((AndroidTest) getApplication()).getBasketItems().size();
         if (num > 0) {
             basketText.setVisibility(View.VISIBLE);
             circle.setVisibility(View.VISIBLE);
@@ -98,17 +96,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void signOut() {
         initAuth();
-        // Firebase sign out
-        mAuth.signOut();
-
-        // Google sign out
-        mSignInClient.signOut().addOnCompleteListener(this,
-                new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                    }
-                });
-        ((AndroidTest) getApplication()).setBasket(0);
     }
 
     public void showNameToast(String name) {

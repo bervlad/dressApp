@@ -2,27 +2,22 @@ package com.example.androidtest.activity.base;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
-
-import com.example.androidtest.R;
-import com.example.androidtest.app.AndroidTest;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.androidtest.model.BasketItem;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class BasePresenterClass {
-    public FirebaseAuth mAuth;
+import java.util.HashSet;
 
+public class BasePresenterClass implements BasePresenter {
 
-    public void initAuth(Context context) {
+    FirebaseAuth mAuth;
 
-        // Initialize Firebase Auth
+    @Override
+    public void initAuth(Context context, HashSet<BasketItem> items) {
         mAuth = FirebaseAuth.getInstance();
 
-        if (mAuth.getCurrentUser() != null) mAuth.signOut();;
-        ((AndroidTest) getApplication()).setBasket(0);
+        if (mAuth.getCurrentUser() != null) {
+            mAuth.signOut();
+            items.clear();
+        }
     }
-
 }

@@ -1,9 +1,13 @@
 package com.example.androidtest.activity.base;
 
-public interface BasePresenter<T> {
+import android.content.Context;
 
-    void takeView(T view);
+import com.example.androidtest.model.BasketItem;
 
-    void dropView();
+import java.util.HashSet;
+
+public interface BasePresenter {
+
+    void initAuth (Context context, HashSet<BasketItem> items);
 
 }
