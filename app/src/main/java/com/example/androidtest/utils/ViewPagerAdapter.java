@@ -12,7 +12,6 @@ import java.util.List;
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     private final List<Fragment> fragmentList = new ArrayList<>();
-    private final List<String> titleList = new ArrayList<>();
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
@@ -31,7 +30,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     public void addFragment(Fragment fragment) {
         fragmentList.add(fragment);
-        titleList.add(title);
     }
 
     @Nullable
