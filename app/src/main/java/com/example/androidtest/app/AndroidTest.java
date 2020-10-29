@@ -14,6 +14,7 @@ public class AndroidTest extends Application {
     private int basket;
     private ArrayList<DressItem> items;
     private AppDatabase appDatabase;
+    FireBase fireBase;
 
     public HashSet<BasketItem> getBasketItems() {
         return basketItems;
@@ -23,10 +24,20 @@ public class AndroidTest extends Application {
         return appDatabase;
     }
 
+    public void initAuth () {
+        fireBase.setBasketItems(basketItems);
+        fireBase.initAuth();
+    }
+
+    public void FireDatabaseToSQL () {
+        fireBase.FireDatabaseToSQL(appDatabase);
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         basketItems = new HashSet<>();
+        fireBase = new FireBase();
 
         appDatabase = Room.databaseBuilder(this, AppDatabase.class, "dataUsersDress")
                 .allowMainThreadQueries()

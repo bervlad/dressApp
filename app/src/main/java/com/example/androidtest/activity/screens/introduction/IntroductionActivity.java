@@ -30,8 +30,8 @@ public class IntroductionActivity extends AppCompatActivity implements Introduct
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        this.setPresenter(new IntroductionPresenter());
-        presenter.initAuth(this, ((AndroidTest) getApplication()).getBasketItems());
+        this.setPresenter(new IntroductionPresenter(this));
+        presenter.initAuth();
 
         setContentView(R.layout.activity_main);
 
@@ -93,7 +93,6 @@ public class IntroductionActivity extends AppCompatActivity implements Introduct
         public void login() {
             Intent explicitIntent = new Intent(IntroductionActivity.this, LoginActivity.class);
             startActivity(explicitIntent);
-            //signIn();
         }
 
         @Override
@@ -110,8 +109,4 @@ public class IntroductionActivity extends AppCompatActivity implements Introduct
         this.presenter=presenter;
     }
 
-    @Override
-    public void hideKeyboard() {
-
-    }
 }
