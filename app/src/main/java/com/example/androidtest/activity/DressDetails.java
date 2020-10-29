@@ -15,8 +15,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 
 import com.bumptech.glide.Glide;
+import com.example.androidtest.activity.DressChooser;
 import com.example.androidtest.activity.base.BaseActivity;
-import com.example.androidtest.activity.screens.dresschooser.DressChooser;
 import com.example.androidtest.app.AndroidTest;
 import com.example.androidtest.R;
 import com.example.androidtest.listeners.Constants;
@@ -106,9 +106,14 @@ public class DressDetails extends BaseActivity {
                     showNameToast("Please specify color");
                     return;
                 }
-                int quantity = Integer.parseInt(quant.getSelectedItem().toString());
-                int num = (((AndroidTest) getApplication()).getBasket()) + quantity;
-                ((AndroidTest) getApplication()).setBasket(num);
+
+                BasketItem item = new BasketItem(currentUser.getEmail(),
+                        dressItem.getId(),
+                        spinnerSize.getSelectedItem().toString(),
+                        spinnerColor.getSelectedItem().toString(),
+                        Integer.parseInt(quant.getSelectedItem().toString()));
+                ((AndroidTest) getApplication()).getBasketItems().add(item);
+
                 Intent explicitIntent = new Intent(DressDetails.this, DressChooser.class);
                 startActivity(explicitIntent);
             }

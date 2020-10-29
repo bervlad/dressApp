@@ -88,13 +88,13 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
                 @Override
                 public void onClick(View view) {
                     presenter.heartClicked(items.get(position).getId());
-                    if (appDatabase.userItemDao().getLikesForUser(mUser.getEmail()).contains(items.get(position).getId())) {
-                        holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_unpressed_like));
-                        removeLike(items.get(position));
-                    } else {
-                        holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_pressed_like));
-                        addLike(items.get(position));
-                    }
+//                    if (appDatabase.userItemDao().getLikesForUser(mUser.getEmail()).contains(items.get(position).getId())) {
+//                        holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_unpressed_like));
+//                        removeLike(items.get(position));
+//                    } else {
+//                        holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_pressed_like));
+//                        addLike(items.get(position));
+//                    }
                 }
             });
 

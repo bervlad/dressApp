@@ -99,12 +99,6 @@ public class DressChooser extends BaseActivity implements DressChooserContract.V
 
     @Override
     public void setHeart(String itemId, Boolean isPressed) {
-        for (DressItem item : items) {
-            if (item.getId().equals(itemId)) {
-                adapter.getmHolder(isPressed);
-                return;
-            }
-        }
+        adapter.getmHolder(isPressed);
     }
-
 }
