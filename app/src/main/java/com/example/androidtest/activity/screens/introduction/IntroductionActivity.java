@@ -9,9 +9,9 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.androidtest.R;
-import com.example.androidtest.activity.DressChooser;
 import com.example.androidtest.activity.LoginActivity;
 import com.example.androidtest.activity.RegisterActivity;
+import com.example.androidtest.activity.screens.dresschooser.DressChooser;
 import com.example.androidtest.app.AndroidTest;
 import com.example.androidtest.fragment.FragmentTemplate;
 import com.example.androidtest.listeners.OnLastFragment;

@@ -1,4 +1,4 @@
-package com.example.androidtest.activity;
+package com.example.androidtest.activity.screens.dresschooser;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.example.androidtest.R;
+import com.example.androidtest.activity.DressDetails;
 import com.example.androidtest.activity.base.BaseActivity;
 import com.example.androidtest.activity.base.BasePresenterClass;
 import com.example.androidtest.activity.screens.dresschooser.DressChooserContract;

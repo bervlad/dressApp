@@ -15,8 +15,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.widget.NestedScrollView;
 
 import com.bumptech.glide.Glide;
-import com.example.androidtest.activity.DressChooser;
 import com.example.androidtest.activity.base.BaseActivity;
+import com.example.androidtest.activity.screens.dresschooser.DressChooser;
 import com.example.androidtest.app.AndroidTest;
 import com.example.androidtest.R;
 import com.example.androidtest.listeners.Constants;
