@@ -11,6 +11,7 @@ import com.example.androidtest.model.DressItem;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +25,6 @@ import java.util.HashSet;
 
 public class FireBase {
 
-    HashSet<BasketItem> basketItems;
     AppDatabase database;
 
     StorageReference mStorageRef;
@@ -32,11 +32,7 @@ public class FireBase {
     DatabaseReference myRef;
 
 
-    public void setBasketItems(HashSet<BasketItem> basketItems) {
-        this.basketItems = basketItems;
-    }
-
-    public void initAuth () {
+    public void initAuth (HashSet<BasketItem> basketItems) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() != null) {
             mAuth.signOut();
@@ -112,5 +108,9 @@ public class FireBase {
         if (tempList.size()==dataSnapshot.getChildrenCount()) {
             database.dressItemDao().insert(tempList);
         }
+    }
+
+    public FirebaseUser getUser () {
+        return (FirebaseAuth.getInstance()).getCurrentUser();
     }
 }

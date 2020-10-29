@@ -39,4 +39,8 @@ public class BasePresenterClass implements BasePresenter {
     public AppDatabase getDatabase() {
         return (getApp().getDatabase());
     }
+
+    public int getBasketSize () {
+        return getApp().getBasketItems().size();
+    }
 }

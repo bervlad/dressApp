@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.androidtest.R;
+import com.example.androidtest.activity.screens.dresschooser.DressChooserContract;
+import com.example.androidtest.activity.screens.dresschooser.DressChooserPresenter;
 import com.example.androidtest.database.AppDatabase;
 import com.example.androidtest.listeners.OnDressItemClickListener;
 import com.example.androidtest.model.DressItem;
@@ -29,13 +31,18 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
     private ArrayList<DressItem> items;
     private Context ctx;
     private OnDressItemClickListener listener;
-    FirebaseUser mUser;
-    AppDatabase appDatabase;
+    private DressChooserContract.Presenter presenter;
 
-    public ItemRecyclerAdapter(ArrayList<DressItem> items, Context ctx, AppDatabase database) {
+
+    private ViewHolder mHolder;
+
+//    final AppDatabase appDatabase;
+
+    public ItemRecyclerAdapter(ArrayList<DressItem> items, Context ctx, DressChooserContract.Presenter presenter) {
         this.items = items;
         this.ctx = ctx;
-        this.appDatabase = database;
+        this.presenter = presenter;
+//        this.appDatabase = database;
     }
 
     public void setListener(OnDressItemClickListener listener) {
@@ -65,7 +72,8 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
-        mUser = (FirebaseAuth.getInstance()).getCurrentUser();
+
+        mHolder = holder;
 
         Glide.with(holder.dressTypeImage).load(items.get(position).getUri()).placeholder(R.drawable.ic_account_search_outline).into(holder.dressTypeImage);
 
@@ -73,7 +81,7 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
         holder.price.setText(items.get(position).getPriceText());
         holder.reviews.setText(items.get(position).getReviewsText());
 
-        if (mUser == null) {
+        if (!presenter.isLoggedIn()) {
             holder.likedImage.setVisibility(View.GONE);
         } else {
             holder.likedImage.setOnClickListener(new View.OnClickListener() {
@@ -89,12 +97,8 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
                 }
             });
 
-            Log.d("TAG", "SET: " + appDatabase.userItemDao().getLikesForUser(mUser.getEmail()).toString());
-            if (appDatabase.userItemDao().getLikesForUser(mUser.getEmail()).contains(items.get(position).getId())) {
-                holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_pressed_like));
-            } else {
-                holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_unpressed_like));
-            }
+            presenter.showHeart(items.get(position).getId());
+
         }
 
         holder.container.setOnClickListener(new View.OnClickListener() {
@@ -152,18 +156,9 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
         }
     }
 
-    public void addLike(DressItem item) {
 
-        //sql room Database insert
-        appDatabase.userDressItemDao().insert(new UserDressItem(mUser.getEmail(), item.getId()));
-        Log.d("TAG", "Added item " + item.getId() + " to database for user " + mUser.getEmail());
-    }
-
-    public void removeLike(DressItem item) {
-
-        //sql room Database delete
-        appDatabase.userDressItemDao().deleteLikeFromUser(mUser.getEmail(), item.getId());
-        Log.d("TAG", "Deleted item " + item.getId() + " to database for user " + mUser.getEmail());
-
+    public void getmHolder(Boolean isPressed) {
+        if (!isPressed) mHolder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_unpressed_like));
+        else mHolder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_pressed_like));
     }
 }

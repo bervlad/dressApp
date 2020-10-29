@@ -25,12 +25,15 @@ public class AndroidTest extends Application {
     }
 
     public void initAuth () {
-        fireBase.setBasketItems(basketItems);
-        fireBase.initAuth();
+        fireBase.initAuth(basketItems);
     }
 
     public void FireDatabaseToSQL () {
         fireBase.FireDatabaseToSQL(appDatabase);
+    }
+
+    public FirebaseUser getUser () {
+        return fireBase.getUser();
     }
 
     @Override

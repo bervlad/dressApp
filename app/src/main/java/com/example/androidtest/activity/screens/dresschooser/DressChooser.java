@@ -13,21 +13,12 @@ import android.view.View;
 
 import com.example.androidtest.R;
 import com.example.androidtest.activity.base.BaseActivity;
-import com.example.androidtest.activity.screens.introduction.IntroductionContract;
-import com.example.androidtest.database.AppDatabase;
+import com.example.androidtest.activity.base.BasePresenterClass;
 import com.example.androidtest.listeners.Constants;
 import com.example.androidtest.listeners.OnDressItemClickListener;
 import com.example.androidtest.model.DressItem;
 import com.example.androidtest.utils.ItemRecyclerAdapter;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,15 +36,17 @@ public class DressChooser extends BaseActivity implements DressChooserContract.V
         setContentView(R.layout.activity_second);
 
         initToolbarWithNavigation("Dresses", true);
-        initBasket();
+
 
         recyclerView = (RecyclerView) findViewById(R.id.rv_recycler);
         items = new ArrayList<DressItem>();
 
-        adapterInit();
 
-        this.setPresenter(new DressChooserPresenter (this));
+        this.setPresenter(new DressChooserPresenter(this));
+        adapterInit();
         presenter.takeView(this);
+        initBasket();
+
         presenter.FireDatabaseToSQL();
 
         if (getIntent().getExtras() != null) {
@@ -63,7 +56,7 @@ public class DressChooser extends BaseActivity implements DressChooserContract.V
 
 
     private void adapterInit() {
-        adapter = new ItemRecyclerAdapter(items, this, getDatabase());
+        adapter = new ItemRecyclerAdapter(items, this, presenter);
         OnDressItemClickListener listener = new OnDressItemClickListener() {
 
             @Override
@@ -88,16 +81,28 @@ public class DressChooser extends BaseActivity implements DressChooserContract.V
 
     @Override
     public void setPresenter(DressChooserContract.Presenter presenter) {
-        this.presenter=presenter;
+        this.presenter = presenter;
+        super.presenter = (BasePresenterClass) presenter;
     }
 
 
     @Override
     public void observeItems(LiveData<List<DressItem>> itemsLiveData) {
-            itemsLiveData.observe(this, (List<DressItem> dressItems) -> {
+        itemsLiveData.observe(this, (List<DressItem> dressItems) -> {
             items.clear();
             items.addAll(dressItems);
             adapter.notifyDataSetChanged();
         });
     }
+
+    @Override
+    public void setHeart(String itemId, Boolean isPressed) {
+        for (DressItem item : items) {
+            if (item.getId().equals(itemId)) {
+                adapter.getmHolder(isPressed);
+                return;
+            }
+        }
+    }
+
 }

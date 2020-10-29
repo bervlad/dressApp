@@ -17,35 +17,19 @@ import com.example.androidtest.app.AndroidTest;
 import com.example.androidtest.R;
 import com.example.androidtest.database.AppDatabase;
 import com.example.androidtest.listeners.Constants;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
     TextView basketText;
     AppCompatImageView circle;
-    public GoogleSignInClient mSignInClient;
     public FirebaseAuth mAuth;
 
-    public void initAuth() {
-        // Initialize Firebase Auth
-        mAuth = FirebaseAuth.getInstance();
-
-        if (mAuth.getCurrentUser() != null) {
-            mAuth.signOut();
-            ((AndroidTest) getApplication()).getBasketItems().clear();
-        }
-
-    }
+    public BasePresenterClass presenter;
 
 
     public void initToolbarWithNavigation(String title, Boolean menu) {
-        toolbar = findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(title);
         if (menu) {
             toolbar.inflateMenu(R.menu.main);
@@ -83,7 +67,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         //basket init
         basketText = findViewById(R.id.basket_text);
         circle = findViewById(R.id.basket_circle);
-        int num = ((AndroidTest) getApplication()).getBasketItems().size();
+        int num = presenter.getBasketSize();
         if (num > 0) {
             basketText.setVisibility(View.VISIBLE);
             circle.setVisibility(View.VISIBLE);
@@ -95,7 +79,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void signOut() {
-        initAuth();
+        presenter.initAuth();
     }
 
     public void showNameToast(String name) {
