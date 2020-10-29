@@ -37,13 +37,9 @@ public class DressChooser extends BaseActivity implements DressChooserContract.V
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
-
         initToolbarWithNavigation("Dresses", true);
-
-
         recyclerView = (RecyclerView) findViewById(R.id.rv_recycler);
         items = new ArrayList<DressItem>();
-
 
         this.setPresenter(new DressChooserPresenter(this));
         adapterInit();

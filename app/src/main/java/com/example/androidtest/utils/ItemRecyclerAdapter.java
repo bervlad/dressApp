@@ -2,7 +2,6 @@ package com.example.androidtest.utils;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,13 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.androidtest.R;
 import com.example.androidtest.activity.screens.dresschooser.DressChooserContract;
-import com.example.androidtest.activity.screens.dresschooser.DressChooserPresenter;
-import com.example.androidtest.database.AppDatabase;
 import com.example.androidtest.listeners.OnDressItemClickListener;
 import com.example.androidtest.model.DressItem;
-import com.example.androidtest.model.UserDressItem;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
@@ -87,6 +81,7 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
             holder.likedImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
                     presenter.heartClicked(items.get(position).getId());
 //                    if (appDatabase.userItemDao().getLikesForUser(mUser.getEmail()).contains(items.get(position).getId())) {
 //                        holder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_unpressed_like));
