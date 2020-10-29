@@ -14,6 +14,8 @@ import android.view.View;
 import com.example.androidtest.R;
 import com.example.androidtest.activity.base.BaseActivity;
 import com.example.androidtest.activity.base.BasePresenterClass;
+import com.example.androidtest.activity.screens.dresschooser.DressChooserContract;
+import com.example.androidtest.activity.screens.dresschooser.DressChooserPresenter;
 import com.example.androidtest.listeners.Constants;
 import com.example.androidtest.listeners.OnDressItemClickListener;
 import com.example.androidtest.model.DressItem;

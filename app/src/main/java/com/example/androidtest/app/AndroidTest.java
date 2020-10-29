@@ -4,15 +4,19 @@ import android.app.Application;
 
 import androidx.room.Room;
 
+import com.example.androidtest.activity.base.FireBase;
 import com.example.androidtest.database.AppDatabase;
+import com.example.androidtest.model.BasketItem;
 import com.example.androidtest.model.DressItem;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class AndroidTest extends Application {
 
     private int basket;
-    private ArrayList<DressItem> items;
+    private HashSet<BasketItem> basketItems;
     private AppDatabase appDatabase;
     FireBase fireBase;
 
