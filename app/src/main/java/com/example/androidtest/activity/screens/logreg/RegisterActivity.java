@@ -1,4 +1,4 @@
-package com.example.androidtest.activity;
+package com.example.androidtest.activity.screens.logreg;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;

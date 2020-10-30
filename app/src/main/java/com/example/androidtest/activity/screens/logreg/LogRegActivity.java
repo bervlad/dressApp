@@ -1,4 +1,4 @@
-package com.example.androidtest.activity;
+package com.example.androidtest.activity.screens.logreg;
 
 import android.content.Intent;
 import android.util.Log;
@@ -20,15 +20,7 @@ public abstract class LogRegActivity extends BaseActivity {
             explicitIntent.putExtra(Constants.LOG, user.getDisplayName());
         }
 
-        AppDatabase database = getDatabase();
-        if (database.userItemDao().checkEmail(user.getEmail()).size() == 0) {
-            UserItem newUser = new UserItem(Objects.requireNonNull(user.getEmail()));
-            database.userItemDao().insert(newUser);
-            Log.d("TAG", "User added to SQL database");
-
-        } else {
-            Log.d("TAG", "User " + database.userItemDao().checkEmail(user.getEmail()).get(0).getEmail() + " exists");
-        }
+        presenter.addUserToDatabase(user);
 
         startActivity(explicitIntent);
     }

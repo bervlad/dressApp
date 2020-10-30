@@ -9,15 +9,14 @@ import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.androidtest.R;
-import com.example.androidtest.activity.LoginActivity;
-import com.example.androidtest.activity.RegisterActivity;
+import com.example.androidtest.activity.screens.logreg.LoginActivity;
+import com.example.androidtest.activity.screens.logreg.RegisterActivity;
 import com.example.androidtest.activity.screens.dresschooser.DressChooser;
-import com.example.androidtest.app.AndroidTest;
 import com.example.androidtest.fragment.FragmentTemplate;
 import com.example.androidtest.listeners.OnLastFragment;
 import com.example.androidtest.utils.ViewPagerAdapter;
 
-public class IntroductionActivity extends AppCompatActivity implements IntroductionContract.View{
+public class IntroductionActivity extends AppCompatActivity implements IntroductionContract.View {
 
     private ViewPager viewPager;
     private ViewPagerAdapter adapter;
@@ -103,10 +102,9 @@ public class IntroductionActivity extends AppCompatActivity implements Introduct
 
     };
 
-
     @Override
     public void setPresenter(IntroductionContract.Presenter presenter) {
-        this.presenter=presenter;
+        this.presenter = presenter;
     }
 
 }

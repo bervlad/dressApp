@@ -20,28 +20,21 @@ import java.util.List;
 
 public class DressChooserPresenter extends BasePresenterClass implements DressChooserContract.Presenter {
 
-    AppDatabase database;
-    Owner owner;
-
-    DressChooserContract.View view;
-
-
+    private DressChooserContract.View view;
 
     public DressChooserPresenter(AppCompatActivity activity) {
-
         super(activity);
     }
 
     @Override
     public void takeView(DressChooserContract.View view) {
         this.view = view;
-            database = super.getDatabase();
-            if (database != null) {
-                LiveData<List<DressItem>> liveItemData = database.dressItemDao().getAll();
-                //liveItemData.observe(owner, );
-                view.observeItems(liveItemData);
-            }
+        AppDatabase database = super.getDatabase();
+        if (database != null) {
+            LiveData<List<DressItem>> liveItemData = database.dressItemDao().getAll();
+            liveItemData.observe(super.getActivity(), view::observeItems);
         }
+    }
 
     @Override
     public void FireDatabaseToSQL() {
@@ -49,13 +42,11 @@ public class DressChooserPresenter extends BasePresenterClass implements DressCh
     }
 
     @Override
-    public Boolean isLoggedIn () {
+    public Boolean isLoggedIn() {
         return getUser() != null;
     }
 
-    public FirebaseUser getUser () {
-        return getApp().getUser();
-    }
+
 
     @Override
     public void heartClicked(String itemId) {
@@ -77,10 +68,6 @@ public class DressChooserPresenter extends BasePresenterClass implements DressCh
         FirebaseUser mUser = getUser();
         AppDatabase database = getDatabase();
         view.setHeart(database.userItemDao().getLikesForUser(mUser.getEmail()).contains(itemId));
-    }
-
-    public void setOwner(Owner owner) {
-        this.owner = owner;
     }
 
 }

@@ -4,12 +4,16 @@ import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidtest.database.AppDatabase;
 import com.example.androidtest.model.BasketItem;
 import com.example.androidtest.model.DressItem;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +26,10 @@ import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Objects;
+import java.util.concurrent.Executor;
+
+import static android.content.ContentValues.TAG;
 
 public class FireBase {
 
@@ -113,4 +121,24 @@ public class FireBase {
     public FirebaseUser getUser () {
         return (FirebaseAuth.getInstance()).getCurrentUser();
     }
-}
+
+    public void logPassAuth (String email, String password, BasePresenterClass presenter, AppCompatActivity activity) {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            mAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                // Sign in success, update UI with the signed-in user's information
+                                Log.d(TAG, "signInWithEmail:success");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                assert user != null;
+                                presenter.loginSuccess(user);
+
+                            } else {
+                                presenter.loginFailed (task);
+                            }
+                        }
+                    });
+        }
+    }

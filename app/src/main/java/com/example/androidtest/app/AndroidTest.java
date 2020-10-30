@@ -2,8 +2,10 @@ package com.example.androidtest.app;
 
 import android.app.Application;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import com.example.androidtest.activity.base.BasePresenterClass;
 import com.example.androidtest.activity.base.FireBase;
 import com.example.androidtest.database.AppDatabase;
 import com.example.androidtest.model.BasketItem;
@@ -38,6 +40,10 @@ public class AndroidTest extends Application {
 
     public FirebaseUser getUser () {
         return fireBase.getUser();
+    }
+    
+    public void logPassAuth (String email, String pass, BasePresenterClass presenter, AppCompatActivity activity) {
+        fireBase.logPassAuth (email, pass, presenter, activity);
     }
 
     @Override

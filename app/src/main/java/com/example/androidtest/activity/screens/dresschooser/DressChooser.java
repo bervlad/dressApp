@@ -14,6 +14,7 @@ import android.view.View;
 import com.example.androidtest.R;
 import com.example.androidtest.activity.DressDetails;
 import com.example.androidtest.activity.base.BaseActivity;
+import com.example.androidtest.activity.base.BasePresenter;
 import com.example.androidtest.activity.base.BasePresenterClass;
 import com.example.androidtest.activity.screens.dresschooser.DressChooserContract;
 import com.example.androidtest.activity.screens.dresschooser.DressChooserPresenter;
@@ -37,11 +38,11 @@ public class DressChooser extends BaseActivity implements DressChooserContract.V
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_second);
+        this.setPresenter(new DressChooserPresenter(this));
         initToolbarWithNavigation("Dresses", true);
         recyclerView = (RecyclerView) findViewById(R.id.rv_recycler);
         items = new ArrayList<DressItem>();
 
-        this.setPresenter(new DressChooserPresenter(this));
         adapterInit();
         presenter.takeView(this);
         initBasket();
@@ -78,21 +79,12 @@ public class DressChooser extends BaseActivity implements DressChooserContract.V
     }
 
 
-    @Override
-    public void setPresenter(DressChooserContract.Presenter presenter) {
-        this.presenter = presenter;
-        super.presenter = (BasePresenterClass) presenter;
-    }
-
 
     @Override
-    public void observeItems(LiveData<List<DressItem>> itemsLiveData) {
-
-        itemsLiveData.observe(this, (List<DressItem> dressItems) -> {
-            items.clear();
-            items.addAll(dressItems);
-            adapter.notifyDataSetChanged();
-        });
+    public void observeItems(List<DressItem> dressItems) {
+        items.clear();
+        items.addAll(dressItems);
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -103,5 +95,11 @@ public class DressChooser extends BaseActivity implements DressChooserContract.V
     @Override
     public void notifyChange() {
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setPresenter(DressChooserContract.Presenter presenter) {
+        this.presenter = presenter;
+        super.presenter = (BasePresenterClass) presenter;
     }
 }

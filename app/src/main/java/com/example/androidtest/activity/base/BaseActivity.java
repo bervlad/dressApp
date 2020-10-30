@@ -2,24 +2,28 @@ package com.example.androidtest.activity.base;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.androidtest.activity.screens.dresschooser.DressChooserContract;
 import com.example.androidtest.app.AndroidTest;
 import com.example.androidtest.R;
 import com.example.androidtest.database.AppDatabase;
 import com.example.androidtest.listeners.Constants;
 import com.google.firebase.auth.FirebaseAuth;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity  {
 
     TextView basketText;
     AppCompatImageView circle;
@@ -27,13 +31,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public BasePresenterClass presenter;
 
-
     public void initToolbarWithNavigation(String title, Boolean menu) {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(title);
         if (menu) {
             toolbar.inflateMenu(R.menu.main);
-            if ((FirebaseAuth.getInstance()).getCurrentUser() != null) {
+            if (presenter.getUser() != null) {
                 toolbar.getMenu().getItem(2).setVisible(true);
             }
         }

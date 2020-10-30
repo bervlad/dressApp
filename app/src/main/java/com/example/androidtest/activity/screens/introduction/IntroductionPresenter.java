@@ -16,11 +16,6 @@ import java.util.HashSet;
 
 public class IntroductionPresenter extends BasePresenterClass implements IntroductionContract.Presenter {
 
-    StorageReference mStorageRef;
-    FirebaseDatabase fdatabase;
-    DatabaseReference myRef;
-
-
     private IntroductionContract.View view;
 
 
@@ -29,4 +24,8 @@ public class IntroductionPresenter extends BasePresenterClass implements Introdu
     }
 
 
+    @Override
+    public void takeView(IntroductionContract.View view) {
+
+    }
 }
