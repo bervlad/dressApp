@@ -1,13 +1,8 @@
 package com.example.androidtest.activity.screens.dresschooser;
 
-import androidx.lifecycle.LiveData;
-
 import com.example.androidtest.activity.base.BasePresenter;
 import com.example.androidtest.activity.base.BaseView;
-import com.example.androidtest.activity.screens.introduction.IntroductionContract;
-import com.example.androidtest.database.AppDatabase;
 import com.example.androidtest.model.DressItem;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 

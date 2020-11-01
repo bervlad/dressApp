@@ -12,7 +12,7 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.Objects;
 
 
-public class AuthPresenter extends BasePresenterClass implements AuthContract.Presenter{
+public class AuthPresenter extends BasePresenterClass implements AuthContract.Presenter {
 
     private AuthContract.View view;
 
@@ -61,7 +61,7 @@ public class AuthPresenter extends BasePresenterClass implements AuthContract.Pr
     }
 
     private boolean isUserLoggedIn(FirebaseUser user) {
-        if (user!= null) {
+        if (user != null) {
             view.showToast("Already signed in");
             view.goToList();
             return true;
@@ -76,7 +76,7 @@ public class AuthPresenter extends BasePresenterClass implements AuthContract.Pr
 
     @Override
     public void dropView() {
-        this.view=null;
+        this.view = null;
     }
 
     @Override

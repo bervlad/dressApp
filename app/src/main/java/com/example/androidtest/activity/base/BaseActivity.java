@@ -57,7 +57,7 @@ public abstract class BaseActivity extends AppCompatActivity  {
             public boolean onMenuItemClick(MenuItem item) {
                 int id = item.getItemId();
                 if (id == R.id.action_item_logout) {
-                    signOut();
+                    presenter.initAuth();
                     Intent clearIntent = getIntent();
                     clearIntent.removeExtra(Constants.LOG);
                     setIntent(clearIntent);
@@ -84,17 +84,11 @@ public abstract class BaseActivity extends AppCompatActivity  {
         }
     }
 
-    public void signOut() {
-        presenter.initAuth();
-    }
-
     public void showNameToast(String name) {
         Toast.makeText(this, name, Toast.LENGTH_LONG).show();
     }
 
-    public AppDatabase getDatabase() {
-        return ((AndroidTest) getApplication()).getDatabase();
+    public void showToast(String toast) {
+        showNameToast(toast);
     }
-
-
 }

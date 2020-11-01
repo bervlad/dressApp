@@ -4,9 +4,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.androidtest.activity.screens.logreg.RegisterActivity;
 import com.example.androidtest.database.AppDatabase;
 import com.example.androidtest.model.BasketItem;
 import com.example.androidtest.model.DressItem;
@@ -26,6 +24,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
@@ -41,8 +41,7 @@ public class FireBase {
     FirebaseDatabase fdatabase;
     DatabaseReference myRef;
 
-
-    public void initAuth (HashSet<BasketItem> basketItems) {
+    public void initAuth(HashSet<BasketItem> basketItems) {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         if (mAuth.getCurrentUser() != null) {
             mAuth.signOut();
@@ -50,7 +49,7 @@ public class FireBase {
         }
     }
 
-    public void FireDatabaseToSQL (AppDatabase database) {
+    public void FireDatabaseToSQL(AppDatabase database) {
         this.database = database;
         mStorageRef = FirebaseStorage.getInstance().getReference();
         fdatabase = FirebaseDatabase.getInstance();
@@ -59,13 +58,13 @@ public class FireBase {
         myRef.addValueEventListener(new ValueEventListener() {
 
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
                 database.dressItemDao().deleteAll();
                 setItems(dataSnapshot);
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
+            public void onCancelled(@NotNull DatabaseError error) {
                 // Failed to read value
                 Log.w("TAG", "Failed to read value.", error.toException());
             }
@@ -92,7 +91,7 @@ public class FireBase {
 
     }
 
-    private void setUriAndAddtoSQL(DressItem item, ArrayList <DressItem> tempList, DataSnapshot dataSnapshot) {
+    private void setUriAndAddtoSQL(DressItem item, ArrayList<DressItem> tempList, DataSnapshot dataSnapshot) {
         String id = item.getImg_src();
         mStorageRef.child("images/" + id + ".png").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
@@ -101,8 +100,6 @@ public class FireBase {
                 item.setUri(uri.toString());
                 tempList.add(item);
                 checkAndAddToDB(tempList, dataSnapshot);
-
-                //database.dressItemDao().insert(item);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -115,16 +112,16 @@ public class FireBase {
     }
 
     private void checkAndAddToDB(ArrayList<DressItem> tempList, DataSnapshot dataSnapshot) {
-        if (tempList.size()==dataSnapshot.getChildrenCount()) {
+        if (tempList.size() == dataSnapshot.getChildrenCount()) {
             database.dressItemDao().insert(tempList);
         }
     }
 
-    public FirebaseUser getUser () {
+    public FirebaseUser getUser() {
         return (FirebaseAuth.getInstance()).getCurrentUser();
     }
 
-    public void regPassAuth (String name, String email, String password, BaseActivity activity) {
+    public void regPassAuth(String name, String email, String password, BaseActivity activity) {
 
         BasePresenterClass presenter = activity.getPresenter();
 
@@ -157,31 +154,30 @@ public class FireBase {
                         } else {
                             // If sign in fails, display a message to the user.
                             presenter.loginFailed(task);
-                            //showNameToast("Login failed: " + Objects.requireNonNull(task.getException()).getMessage());
                         }
                     }
                 });
     }
 
-    public void logPassAuth (String email, String password, BaseActivity activity) {
+    public void logPassAuth(String email, String password, BaseActivity activity) {
         BasePresenterClass presenter = activity.getPresenter();
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
-            mAuth.signInWithEmailAndPassword(email, password)
-                    .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d(TAG, "signInWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                assert user != null;
-                                presenter.loginSuccess(user);
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            assert user != null;
+                            presenter.loginSuccess(user);
 
-                            } else {
-                                presenter.loginFailed (task);
-                            }
+                        } else {
+                            presenter.loginFailed(task);
                         }
-                    });
-        }
+                    }
+                });
     }
+}

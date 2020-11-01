@@ -1,6 +1,5 @@
-package com.example.androidtest.activity;
+package com.example.androidtest.activity.screens.dressdetails;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -16,34 +15,35 @@ import androidx.core.widget.NestedScrollView;
 
 import com.bumptech.glide.Glide;
 import com.example.androidtest.activity.base.BaseActivity;
-import com.example.androidtest.activity.screens.dresschooser.DressChooser;
-import com.example.androidtest.app.AndroidTest;
+import com.example.androidtest.activity.base.BasePresenterClass;
 import com.example.androidtest.R;
 import com.example.androidtest.listeners.Constants;
-import com.example.androidtest.model.BasketItem;
 import com.example.androidtest.model.DressItem;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 
-public class DressDetails extends BaseActivity {
+public class DressDetails extends BaseActivity implements DressDetailsContract.View {
     private DressItem dressItem;
+    private DressDetailsContract.Presenter presenter;
+    private Spinner spinnerSize, spinnerColor, quant;
+
+    public DressDetails() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_third);
+
+        this.setPresenter(new DressDetailsPresenter(this));
+        presenter = (DressDetailsContract.Presenter) getPresenter();
+        presenter.takeView(this);
+
         initToolbarWithNavigation("Details", false);
         initBasket();
-
-        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        final FirebaseUser currentUser = mAuth.getCurrentUser();
-
 
         final LinearLayoutCompat desc = findViewById(R.id.desc_tab);
         final NestedScrollView scroll = findViewById(R.id.scrollView);
@@ -70,7 +70,6 @@ public class DressDetails extends BaseActivity {
         TextView reviews = findViewById(R.id.reviews);
         TextView alert = findViewById(R.id.alert);
 
-
         //Setting data
         Glide.with(avatar).load(dressItem.getUri()).placeholder(R.drawable.ic_account_search_outline).into(avatar);
 
@@ -85,37 +84,15 @@ public class DressDetails extends BaseActivity {
         alert.setText(dressItem.getAlert());
 
         //setting default values
-        final Spinner spinnerSize = setSpinner(R.id.spinner1, new String[]{"Size", "M", "L", "XL"});
-        final Spinner spinnerColor = setSpinner(R.id.spinner2, new String[]{"Color", "White", "Black"});
-        final Spinner quant = setSpinner(R.id.spinner3, new String[]{"1", "2", "3"});
-
+        spinnerSize = setSpinner(R.id.spinner1, new String[]{"Size", "M", "L", "XL"});
+        spinnerColor = setSpinner(R.id.spinner2, new String[]{"Color", "White", "Black"});
+        quant = setSpinner(R.id.spinner3, new String[]{"1", "2", "3"});
 
         //adding functionality to button
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (currentUser == null) {
-                    showNameToast("Please login");
-                    return;
-                }
-                if (spinnerSize.getSelectedItem().toString().equals("Size")) {
-                    showNameToast("Please specify size");
-                    return;
-                }
-                if (spinnerColor.getSelectedItem().toString().equals("Color")) {
-                    showNameToast("Please specify color");
-                    return;
-                }
-
-                BasketItem item = new BasketItem(currentUser.getEmail(),
-                        dressItem.getId(),
-                        spinnerSize.getSelectedItem().toString(),
-                        spinnerColor.getSelectedItem().toString(),
-                        Integer.parseInt(quant.getSelectedItem().toString()));
-                ((AndroidTest) getApplication()).getBasketItems().add(item);
-
-                Intent explicitIntent = new Intent(DressDetails.this, DressChooser.class);
-                startActivity(explicitIntent);
+                presenter.purchaseClicked();
             }
         });
 
@@ -154,4 +131,37 @@ public class DressDetails extends BaseActivity {
 
         return dropdown;
     }
+
+    @Override
+    public void setPresenter(DressDetailsContract.Presenter presenter) {
+        super.presenter = (BasePresenterClass) presenter;
+    }
+
+
+    @Override
+    public String getSpinnerSize() {
+        return spinnerSize.getSelectedItem().toString();
+    }
+
+    @Override
+    public String getSpinnerColor() {
+        return spinnerColor.getSelectedItem().toString();
+    }
+
+    @Override
+    public String getQuant() {
+        return quant.getSelectedItem().toString();
+    }
+
+    @Override
+    public DressItem getDressItem() {
+        return dressItem;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.dropView();
+    }
+
 }

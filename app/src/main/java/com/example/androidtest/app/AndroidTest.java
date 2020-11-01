@@ -2,15 +2,14 @@ package com.example.androidtest.app;
 
 import android.app.Application;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import com.example.androidtest.activity.base.BaseActivity;
-import com.example.androidtest.activity.base.BasePresenterClass;
 import com.example.androidtest.activity.base.FireBase;
 import com.example.androidtest.database.AppDatabase;
 import com.example.androidtest.model.BasketItem;
 import com.google.firebase.auth.FirebaseUser;
+
 import java.util.HashSet;
 
 public class AndroidTest extends Application {
@@ -27,24 +26,24 @@ public class AndroidTest extends Application {
         return appDatabase;
     }
 
-    public void initAuth () {
+    public void initAuth() {
         fireBase.initAuth(basketItems);
     }
 
-    public void FireDatabaseToSQL () {
+    public void FireDatabaseToSQL() {
         fireBase.FireDatabaseToSQL(appDatabase);
     }
 
-    public FirebaseUser getUser () {
+    public FirebaseUser getUser() {
         return fireBase.getUser();
     }
-    
-    public void logPassAuth (String email, String pass, BaseActivity activity) {
-        fireBase.logPassAuth (email, pass, activity);
+
+    public void logPassAuth(String email, String pass, BaseActivity activity) {
+        fireBase.logPassAuth(email, pass, activity);
     }
 
-    public void regPassAuth (String user, String email, String pass, BaseActivity activity) {
-        fireBase.regPassAuth (user, email,pass, activity);
+    public void regPassAuth(String user, String email, String pass, BaseActivity activity) {
+        fireBase.regPassAuth(user, email, pass, activity);
     }
 
     @Override

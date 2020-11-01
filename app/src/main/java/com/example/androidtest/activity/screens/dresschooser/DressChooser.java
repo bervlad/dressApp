@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.example.androidtest.R;
-import com.example.androidtest.activity.DressDetails;
+import com.example.androidtest.activity.screens.dressdetails.DressDetails;
 import com.example.androidtest.activity.base.BaseActivity;
 import com.example.androidtest.activity.base.BasePresenterClass;
 import com.example.androidtest.listeners.Constants;
@@ -52,15 +52,10 @@ public class DressChooser extends BaseActivity implements DressChooserContract.V
         OnDressItemClickListener listener = new OnDressItemClickListener() {
 
             @Override
-            public void onItemClick(int position) {
+            public void onItemClick(View v, int position) {
                 Intent explicitIntent = new Intent(DressChooser.this, DressDetails.class);
                 explicitIntent.putExtra(Constants.EXTRA_ITEM, items.get(position));
                 startActivity(explicitIntent);
-            }
-
-            @Override
-            public void onItemClick(View v, int position) {
-
             }
 
         };
@@ -69,7 +64,6 @@ public class DressChooser extends BaseActivity implements DressChooserContract.V
         recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         recyclerView.setAdapter(adapter);
     }
-
 
 
     @Override

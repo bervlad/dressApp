@@ -15,7 +15,7 @@
         <activity android:name=".activity.screens.logreg.RegisterActivity"></activity>
         <activity android:name=".activity.screens.logreg.LoginActivity" />
         <activity android:name=".activity.screens.dresschooser.DressChooser" />
-        <activity android:name=".activity.DressDetails" />
+        <activity android:name=".activity.screens.dressdetails.DressDetails" />
         <activity android:name=".activity.screens.introduction.IntroductionActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

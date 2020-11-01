@@ -6,14 +6,12 @@ import androidx.appcompat.widget.AppCompatEditText;
 import android.os.Bundle;
 import android.view.View;
 
-import com.example.androidtest.KeyboardUtils;
 import com.example.androidtest.R;
-import com.example.androidtest.activity.base.BasePresenterClass;
 
 public class LoginActivity extends AuthActivity implements AuthContract.View {
 
     private static final String TAG = "LoginActivity";
-    AuthContract.Presenter presenter;
+    private AuthContract.Presenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

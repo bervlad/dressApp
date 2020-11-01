@@ -30,13 +30,10 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
 
     private ViewHolder mHolder;
 
-//    final AppDatabase appDatabase;
-
     public ItemRecyclerAdapter(ArrayList<DressItem> items, Context ctx, DressChooserContract.Presenter presenter) {
         this.items = items;
         this.ctx = ctx;
         this.presenter = presenter;
-//        this.appDatabase = database;
     }
 
     public void setListener(OnDressItemClickListener listener) {
@@ -145,7 +142,9 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
     }
 
     public void getmHolder(Boolean isPressed) {
-        if (!isPressed) mHolder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_unpressed_like));
-        else mHolder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_pressed_like));
+        if (!isPressed)
+            mHolder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_unpressed_like));
+        else
+            mHolder.likedImage.setImageDrawable(ContextCompat.getDrawable(ctx, R.drawable.ic_pressed_like));
     }
 }

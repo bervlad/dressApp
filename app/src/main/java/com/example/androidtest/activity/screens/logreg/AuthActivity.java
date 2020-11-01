@@ -9,8 +9,6 @@ import com.example.androidtest.activity.screens.dresschooser.DressChooser;
 import com.example.androidtest.listeners.Constants;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.Objects;
-
 public abstract class AuthActivity extends BaseActivity {
 
     public void goToListSignedUser(FirebaseUser user) {
@@ -31,10 +29,6 @@ public abstract class AuthActivity extends BaseActivity {
 
     public void hideKeyboard() {
         KeyboardUtils.hide(this);
-    }
-
-    public void showToast(String toast) {
-        showNameToast(toast);
     }
 
     public void setPresenter(AuthContract.Presenter presenter) {

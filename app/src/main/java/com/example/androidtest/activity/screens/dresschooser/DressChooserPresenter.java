@@ -43,17 +43,13 @@ public class DressChooserPresenter extends BasePresenterClass implements DressCh
         return getUser() != null;
     }
 
-
-
     @Override
     public void heartClicked(String itemId) {
         FirebaseUser mUser = getUser();
         AppDatabase database = getDatabase();
         if (database.userItemDao().getLikesForUser(mUser.getEmail()).contains(itemId)) {
-//            view.setHeart(itemId, false);
             database.userDressItemDao().deleteLikeFromUser(mUser.getEmail(), itemId);
         } else {
-//            view.setHeart(itemId, true);
             database.userDressItemDao().insert(new UserDressItem(mUser.getEmail(), itemId));
         }
 
