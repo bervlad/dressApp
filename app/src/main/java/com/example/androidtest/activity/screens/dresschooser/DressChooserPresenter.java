@@ -1,21 +1,13 @@
 package com.example.androidtest.activity.screens.dresschooser;
 
-import android.content.Context;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.LiveData;
 
-import com.example.androidtest.R;
 import com.example.androidtest.activity.base.BasePresenterClass;
 import com.example.androidtest.database.AppDatabase;
-import com.example.androidtest.model.BasketItem;
 import com.example.androidtest.model.DressItem;
 import com.example.androidtest.model.UserDressItem;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.security.acl.Owner;
-import java.util.HashSet;
 import java.util.List;
 
 public class DressChooserPresenter extends BasePresenterClass implements DressChooserContract.Presenter {
@@ -34,6 +26,11 @@ public class DressChooserPresenter extends BasePresenterClass implements DressCh
             LiveData<List<DressItem>> liveItemData = database.dressItemDao().getAll();
             liveItemData.observe(super.getActivity(), view::observeItems);
         }
+    }
+
+    @Override
+    public void dropView() {
+        this.view=null;
     }
 
     @Override

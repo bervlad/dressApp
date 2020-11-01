@@ -1,28 +1,20 @@
 package com.example.androidtest.activity.screens.dresschooser;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.example.androidtest.R;
 import com.example.androidtest.activity.DressDetails;
 import com.example.androidtest.activity.base.BaseActivity;
-import com.example.androidtest.activity.base.BasePresenter;
 import com.example.androidtest.activity.base.BasePresenterClass;
-import com.example.androidtest.activity.screens.dresschooser.DressChooserContract;
-import com.example.androidtest.activity.screens.dresschooser.DressChooserPresenter;
 import com.example.androidtest.listeners.Constants;
 import com.example.androidtest.listeners.OnDressItemClickListener;
 import com.example.androidtest.model.DressItem;
 import com.example.androidtest.utils.ItemRecyclerAdapter;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,5 +93,11 @@ public class DressChooser extends BaseActivity implements DressChooserContract.V
     public void setPresenter(DressChooserContract.Presenter presenter) {
         this.presenter = presenter;
         super.presenter = (BasePresenterClass) presenter;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.dropView();
     }
 }

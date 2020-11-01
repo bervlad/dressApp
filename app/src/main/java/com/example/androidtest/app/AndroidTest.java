@@ -5,19 +5,16 @@ import android.app.Application;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+import com.example.androidtest.activity.base.BaseActivity;
 import com.example.androidtest.activity.base.BasePresenterClass;
 import com.example.androidtest.activity.base.FireBase;
 import com.example.androidtest.database.AppDatabase;
 import com.example.androidtest.model.BasketItem;
-import com.example.androidtest.model.DressItem;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public class AndroidTest extends Application {
 
-    private int basket;
     private HashSet<BasketItem> basketItems;
     private AppDatabase appDatabase;
     FireBase fireBase;
@@ -42,8 +39,12 @@ public class AndroidTest extends Application {
         return fireBase.getUser();
     }
     
-    public void logPassAuth (String email, String pass, BasePresenterClass presenter, AppCompatActivity activity) {
-        fireBase.logPassAuth (email, pass, presenter, activity);
+    public void logPassAuth (String email, String pass, BaseActivity activity) {
+        fireBase.logPassAuth (email, pass, activity);
+    }
+
+    public void regPassAuth (String user, String email, String pass, BaseActivity activity) {
+        fireBase.regPassAuth (user, email,pass, activity);
     }
 
     @Override

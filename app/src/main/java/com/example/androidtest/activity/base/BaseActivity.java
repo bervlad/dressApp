@@ -17,6 +17,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidtest.activity.screens.dresschooser.DressChooserContract;
+import com.example.androidtest.activity.screens.logreg.AuthContract;
 import com.example.androidtest.app.AndroidTest;
 import com.example.androidtest.R;
 import com.example.androidtest.database.AppDatabase;
@@ -25,9 +26,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public abstract class BaseActivity extends AppCompatActivity  {
 
-    TextView basketText;
-    AppCompatImageView circle;
     public FirebaseAuth mAuth;
+
+    public BasePresenterClass getPresenter() {
+        return presenter;
+    }
 
     public BasePresenterClass presenter;
 
@@ -68,8 +71,8 @@ public abstract class BaseActivity extends AppCompatActivity  {
     @SuppressLint("SetTextI18n")
     public void initBasket() {
         //basket init
-        basketText = findViewById(R.id.basket_text);
-        circle = findViewById(R.id.basket_circle);
+        TextView basketText = findViewById(R.id.basket_text);
+        AppCompatImageView circle = findViewById(R.id.basket_circle);
         int num = presenter.getBasketSize();
         if (num > 0) {
             basketText.setVisibility(View.VISIBLE);
@@ -92,5 +95,6 @@ public abstract class BaseActivity extends AppCompatActivity  {
     public AppDatabase getDatabase() {
         return ((AndroidTest) getApplication()).getDatabase();
     }
+
 
 }

@@ -21,7 +21,7 @@ import java.util.Objects;
 
 public class BasePresenterClass {
 
-    private AppCompatActivity activity;
+    private final AppCompatActivity activity;
 
     public BasePresenterClass(AppCompatActivity activity) {
         this.activity = activity;
@@ -70,5 +70,7 @@ public class BasePresenterClass {
     public void loginFailed(Task<AuthResult> task) {
 
     }
+
+
 
 }

@@ -28,4 +28,9 @@ public class IntroductionPresenter extends BasePresenterClass implements Introdu
     public void takeView(IntroductionContract.View view) {
 
     }
+
+    @Override
+    public void dropView() {
+
+    }
 }

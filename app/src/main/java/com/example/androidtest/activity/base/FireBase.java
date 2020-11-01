@@ -6,6 +6,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.androidtest.activity.screens.logreg.RegisterActivity;
 import com.example.androidtest.database.AppDatabase;
 import com.example.androidtest.model.BasketItem;
 import com.example.androidtest.model.DressItem;
@@ -16,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -122,7 +124,48 @@ public class FireBase {
         return (FirebaseAuth.getInstance()).getCurrentUser();
     }
 
-    public void logPassAuth (String email, String password, BasePresenterClass presenter, AppCompatActivity activity) {
+    public void regPassAuth (String name, String email, String password, BaseActivity activity) {
+
+        BasePresenterClass presenter = activity.getPresenter();
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "createUserWithEmail:success");
+                            final FirebaseUser user = mAuth.getCurrentUser();
+
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(name).build();
+
+                            assert user != null;
+                            user.updateProfile(profileUpdates)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Log.d(TAG, "User profile updated.");
+                                                presenter.loginSuccess(user);
+                                                //goToListSignedUser(user);
+                                            }
+                                        }
+                                    });
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            presenter.loginFailed(task);
+                            //showNameToast("Login failed: " + Objects.requireNonNull(task.getException()).getMessage());
+                        }
+                    }
+                });
+    }
+
+    public void logPassAuth (String email, String password, BaseActivity activity) {
+        BasePresenterClass presenter = activity.getPresenter();
+
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(activity, new OnCompleteListener<AuthResult>() {
