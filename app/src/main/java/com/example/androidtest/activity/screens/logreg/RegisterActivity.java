@@ -31,6 +31,7 @@ public class RegisterActivity extends AuthActivity implements AuthContract.View 
         setContentView(R.layout.activity_register);
 
         this.setPresenter(new AuthPresenter(this));
+        presenter = (AuthContract.Presenter) getPresenter();
         presenter.takeView(this);
 
         mAuth = FirebaseAuth.getInstance();

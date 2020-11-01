@@ -21,6 +21,7 @@ public class LoginActivity extends AuthActivity implements AuthContract.View {
         setContentView(R.layout.activity_login_page);
 
         this.setPresenter(new AuthPresenter(this));
+        presenter = (AuthContract.Presenter) getPresenter();
         presenter.takeView(this);
 
         initToolbarWithNavigation("Login page", false);

@@ -7,6 +7,7 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.androidtest.activity.screens.logreg.AuthContract;
 import com.example.androidtest.app.AndroidTest;
 import com.example.androidtest.database.AppDatabase;
 import com.example.androidtest.model.BasketItem;
@@ -70,7 +71,5 @@ public class BasePresenterClass {
     public void loginFailed(Task<AuthResult> task) {
 
     }
-
-
 
 }
